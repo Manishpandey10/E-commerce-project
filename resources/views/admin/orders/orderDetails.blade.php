@@ -65,7 +65,7 @@
                                         <td>
                                             {{-- <button type="button" class=" btn btn-primary edit-btn"
                                                 name="edit ">Edit</button>&nbsp;&nbsp; --}}
-                                            <button type="button" class="btn btn-primary dlt-btn">Details</button>
+                                            <button type="button" class="btn btn-primary dlt-btn">Status</button>
                                         </td>
                                 @endforeach
                             </tbody>
