@@ -1,0 +1,179 @@
+@extends('frontend.layouts.main')
+@section('main-container')
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Shopping Cart</h4>
+                        <div class="breadcrumb__links">
+                            <a href="{{ route('landing.page') }}">Home</a>
+                            <a href="{{ route('shop.page') }}">Shop</a>
+                            <span>Shopping Cart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <span id="alert_msg" class="mx-6 mb-2 text-success">
+                        @include('component.global-message')
+                        <div id="quantity" class="text-danger mb-3">
+                            @error('quantity')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                    </span>
+                    {{-- {{ dd($cartdata); }} --}}
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach ($cartdata as $data)
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+                                                <img src="{{ url('storage/' . $data->products->image) }}"
+                                                    style="width:90px; height:90px" alt="">
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>{{ $data->products->name }}</h6>
+                                                <h5>Rs.{{ $data->products->price }}</h5>
+                                            </div>
+                                        </td>
+
+                                        <td class="quantity__item">
+                                            <form method="POST" action="{{ route('inc.cart', $data->products->id) }}">
+                                                @csrf
+                                                <div class="quantity">
+                                                    {{-- <span id="dec" class="fa fa-angle-left dec qtybtn">aha</span> --}}
+                                                    <div class="pro-qty-2">
+
+                                                        <input type="text" id="quantity" name="quantity" min="1"
+                                                            value="{{ $data->quantity }} ">
+                                                    </div>
+                                                    {{-- <span id="inc" class="fa fa-angle-right inc qtybtn"></span> --}}
+                                                </div>
+
+                                        </td>
+
+                                        <td class="cart__price">Rs.{{ $data->products->price * $data->quantity }}</td>
+
+                                        <td>
+                                            <div class="continue__btn update__btn">
+                                                <button id="submit" class="btn btn-primary btn-sm"
+                                                    type="submit">Update</button>
+                                            </div>
+                                        </td>
+                                        <td class="cart__close"><a href="{{ route('delete.cart', $data->id) }}"><i
+                                                    class="fa fa-close"></i></a>
+                                        </td>
+                                    </tr>
+                                    </form>
+                                @endforeach
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-6">
+                            <div class="continue__btn update__btn">
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-6">
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart__discount">
+                        <h6>Discount codes</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Coupon code">
+                            <button type="submit">Apply</button>
+                        </form>
+                    </div>
+
+
+
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+
+                        <ul>
+                            {{-- {{ dd($totalPrice); }} --}}
+                            <li>Total <span>Rs.{{ $totalPrice }} </span></li>
+                            {{-- <li>Total <span>Rs. -- </span></li> --}}
+                        </ul>
+                        <a href="{{ route('checkout.info') }}" class="primary-btn">Proceed to checkout</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $('#quantity').on('submit', function(e) {
+                    e.preventDefault();
+                    let productId = $(this).data('id');
+                    let formdata = new FormData(this);
+                    $.ajax({
+                        url: "{{ url('/cart-update') }}/" + productId,
+                        method: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(res) {
+
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+
+                });
+            });
+        </script>
+        <script>
+            var proQty = $('.pro-qty-2');
+            proQty.prepend('<span id="dec" class="fa fa-angle-left dec qtybtn"></span>');
+            proQty.append('<span id="inc" class="fa fa-angle-right inc qtybtn"></span>');
+            proQty.on('click', '.qtybtn', function() {
+                var $button = $(this);
+                var oldValue = $button.parent().find('input').val();
+                if ($button.hasClass('inc')) {
+                    var newVal = parseFloat(oldValue) + 1;
+                } else {
+                    // Don't allow decrementing below zero
+                    if (oldValue > 1) {
+                        var newVal = parseFloat(oldValue) - 1;
+                    } else {
+                        newVal = 0;
+                    }
+                }
+                $button.parent().find('input').val(newVal);
+            });
+        </script>
+    @endpush
+@endsection
