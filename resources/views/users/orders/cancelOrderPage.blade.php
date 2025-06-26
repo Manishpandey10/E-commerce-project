@@ -6,14 +6,14 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Return Your Order</h5>
+                            <h5 class="mb-0">Cancel Your order</h5>
                             <span>
                                 @include('component.global-message')
                             </span>
                         </div>
                         <div class="card-body">
 
-                            <form id="updateForm" method="POST" class="mb-6" action="{{ route('order.return.request',$order->order_id) }}">
+                            <form id="updateForm" method="POST" class="mb-6" action="{{ route('request.cancel.order',$order->order_id) }}">
                                 @csrf
                                 <div class="row ">
                                     <div class="col-12 mb-4">
@@ -26,8 +26,11 @@
                                             <option value="1"{{ old('reason') == '1' ? 'selected' : '' }}>Delivery
                                                 getting late
                                             </option>
-                                            <option value="1"{{ old('reason') == '0' ? 'selected' : '' }}>
-                                                wrong product delivered
+                                            <option value="2"{{ old('reason') == '1' ? 'selected' : '' }}>Delivery
+                                                Ordered placed by mistake
+                                            </option>
+                                            <option value="3"{{ old('reason') == '1' ? 'selected' : '' }}>Delivery
+                                                Changed my mind
                                             </option>
                                         </select>
                                         <span id="reason" class="text-danger">
@@ -39,7 +42,7 @@
                                     <div class="col-12 mb-4">
                                         <label for="username" class="form-label">Description</label>
                                         <input type="textarea" class="form-control" id="Category_name" name="Description"
-                                           placeholder="Explain further your reason...." autofocus
+                                            placeholder="Explain further your reason...." autofocus
                                             value="{{ old('Description') }}" />
                                         <span id="Description" class="text-danger">
                                             @error('Description')

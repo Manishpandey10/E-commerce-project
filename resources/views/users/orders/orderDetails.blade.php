@@ -66,7 +66,11 @@
                         </div>
 
                         <div class="card-footer text-end">
-                            <button class="btn btn-danger">Cancel Order</button>
+                            {{-- <button class="btn btn-danger">Cancel Order</button> --}}
+                           
+                            <a href="{{ route('user.cancel.order',$orderDetails->first()->product_id) }}" class="btn btn-danger btn-sm mt-1">
+                                      Cancel Order
+                            </a>  
                         </div>
                     </div>
                 </div>

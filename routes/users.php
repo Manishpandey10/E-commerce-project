@@ -29,4 +29,6 @@ Route::group(['prefix' => 'users', 'middleware'=>['is.admin','auth.access']], fu
     Route::get('/order-details/{id}',[OrderController::class, 'details'])->name('user.order.details');
     Route::get('/return-order/{id}',[OrderController::class ,'returnOrder'])->name('user.return.order');
     Route::post('/return-order/{id}',[OrderController::class ,'returnRequest'])->name('order.return.request');
+    Route::get('/cancel-order/{id}',[OrderController::class ,'cancelOrder'])->name('user.cancel.order');
+    Route::post('/cancel-order/{id}',[OrderController::class ,'cancelRequest'])->name('request.cancel.order');
 });
