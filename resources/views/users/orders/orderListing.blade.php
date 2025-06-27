@@ -6,7 +6,9 @@
             <div class="card mx-4 mt-6">
                 <span id="alert_msg" class="text-success mt-6 mb-4 ">
 
+                    @include('component.global-message')
                 </span>
+
 
                 <h5 class="card-header">Order Listing</h5>
                 <br>
@@ -35,16 +37,19 @@
                                         <td>
                                             {{ $data->name }}
                                         </td>
-                                        <td>    
-                                        @if ( $data->delivery_status === 'Delivered' )
-                                            <span class="text-success">
-                                                {{ $data->delivery_status }}
-                                            </span>
-                                                
+                                        <td>
+                                            @if ($data->delivery_status === 'Delivered')
+                                                <span class="text-success">
+                                                    {{ $data->delivery_status }}
+                                                </span>
+                                            @elseif($data->delivery_status === 'Pending' || $data->delivery_status === 'Not Delivered')
+                                                <span class="text-warning">
+                                                    {{ $data->delivery_status }}
+                                                </span>
                                             @else
                                                 <span class="text-danger">
-                                                {{ $data->delivery_status }}
-                                            </span>
+                                                    {{ $data->delivery_status }}
+                                                </span>
                                             @endif
                                         </td>
                                         <td>
@@ -53,7 +58,8 @@
                                         <td>
                                             {{-- <button type="button" class=" btn btn-primary edit-btn"
                                                 name="edit ">Edit</button>&nbsp;&nbsp; --}}
-                                            <a class="btn btn-primary" href="{{ route('user.order.details',$data->id) }}">Details</a>
+                                            <a class="btn btn-primary"
+                                                href="{{ route('user.order.details', $data->id) }}">Details</a>
                                         </td>
                                 @endforeach
 

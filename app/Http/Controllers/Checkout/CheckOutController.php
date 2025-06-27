@@ -91,7 +91,7 @@ class CheckOutController extends Controller
                 $order->price = $price;
                 $order->total = $total;
                 $order->shipping = 0.00;
-                $order->delivery_status = "pending";
+                $order->delivery_status = "Pending";
                 $order->save(); 
 
                 $order->order_id = 'E-comm:' . $order->id; 
@@ -102,7 +102,7 @@ class CheckOutController extends Controller
                 foreach ($Itemdata as $data) {
 
                     $items = new OrderItems();
-                    $items->order_id = $order->id;
+                    $items->order_id = $order->order_id;
                     $items->product_id = $data->products->id;
                     $items->user_id = Auth::user()->id;
                     $items->sku = "SKU-ABC";
@@ -115,7 +115,7 @@ class CheckOutController extends Controller
 
 
                 $delivery = new DeliveryInfo();
-                $delivery->order_id =$order->id;
+                $delivery->order_id =$order->order_id;
 
                 $delivery->user_id = $user->id;
                 $delivery->name = $request->name;
@@ -130,7 +130,7 @@ class CheckOutController extends Controller
                 // billing info 
 
                 $billing = new BillingInfo();
-                $billing->order_id = $order->id;
+                $billing->order_id = $order->order_id;
                 $billing->user_id = $user->id;
                 $billing->name = $request->billing_name;
                 $billing->email = $request->billing_email;

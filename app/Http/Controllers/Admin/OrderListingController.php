@@ -15,7 +15,7 @@ class OrderListingController extends Controller
     }
     public function updateDeliveryStatus(Request $request, $id){
         $request->validate([
-            'delivery_status'=>'required|in:Pending,Not Delivered,Delivered'
+            'delivery_status'=>'required|in:Pending,Not Delivered,Delivered,Returned,Cancelled'
         ]);
 
         $order = Order::find($id);

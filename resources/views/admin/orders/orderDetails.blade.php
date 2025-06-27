@@ -55,6 +55,12 @@
                                                     <option value="Delivered"
                                                         {{ $data->delivery_status === 'Delivered' ? 'selected' : '' }}>
                                                         Delivered</option>
+                                                    <option value="Returned"
+                                                        {{ $data->delivery_status === 'Returned' ? 'selected' : '' }}>
+                                                        Returned</option>
+                                                    <option value="Cancelled"
+                                                        {{ $data->delivery_status === 'Cancelled' ? 'selected' : '' }}>
+                                                        Cancelled</option>
 
                                                 </select>
                                             </form>

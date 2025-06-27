@@ -3,12 +3,14 @@
 @section('main-container')
     <div class="pc-container">
         <div class="pc-content">
+
             @foreach ($orderDetails as $data)
                 <div class="container mt-4">
+                  
                     <div class="card shadow rounded">
                         <div class="card-header bg-white d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Order Details</h5>
-                            <span class="badge bg-success">E-comm: {{ $data->order_id }}</span>
+                            <span class="badge bg-success">{{ $data->order_id }}</span>
                         </div>
 
                         <div class="card-body">
@@ -23,11 +25,9 @@
                                     <small class="text-muted">SKU:{{ $data->sku }}</small>
                                 </div>
                                 <div class="text-end">
-                                    <p class="mb-0">Price : {{ $data->price }} × 1</p>
+                                    <p class="mb-0">Price : {{ $data->price }} × {{$data->quantity}}</p>
 
-                                    <a href="{{ route('user.return.order',$data->product_id) }}" class="btn btn-warning btn-sm mt-1">
-                                        Return
-                                    </a>
+
 
                                 </div>
                             </div>
@@ -48,57 +48,48 @@
                                             <hr>
                                         </strong>
                                     </p>
-                                    @foreach ($shipping as $data)
-                                        <p><strong>Delivering To:</strong> {{ $data->name }}</p>
-                                        <p><strong>Email: </strong>{{ $data->email }}</p>
-                                        <p><strong>Phone: </strong>{{ $data->phone }}</p>
+                                    @foreach ($shipping as $shippingData)
+                                        <h6><strong>Delivering To:</strong> {{ $shippingData->name }}</h6>
+                                        <h6><strong>Email: </strong>{{ $shippingData->email }}</h6>
+                                        <h6><strong>Phone: </strong>{{ $shippingData->phone }}</h6>
                                         <p><strong>Shipping Address: </strong><br>
-                                            {{ $data->address }}
+                                            {{ $shippingData->address }}
                                         </p>
                                     @endforeach
+
                                     @foreach ($billing as $data)
                                         <p><strong>Billing Address:</strong><br>
                                             {{ $data->address }}
                                         </p>
                                     @endforeach
+                                  
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card-footer text-end">
-                            {{-- <button class="btn btn-danger">Cancel Order</button> --}}
-                           
-                            <a href="{{ route('user.cancel.order',$orderDetails->first()->product_id) }}" class="btn btn-danger btn-sm mt-1">
-                                      Cancel Order
-                            </a>  
-                        </div>
+                        
                     </div>
                 </div>
             @endforeach
-            {{-- 
-        <div class="content-wrapper">
-            <!-- Content -->
-            <div class="row mb-12 mt-7 g-6 justify-content-center">
-                @foreach ($orderDetails as $data)
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="card h-100">
-                            <img class="card-img-top" src="{{ asset('storage/' . $data->image) }}" alt="Card image cap" style="width: max; height:230px;"/>
-                            <div class="card-body">
-                                <h5 class="card-title"><strong>Product Name</strong>: {{ $data->product_name }}</h5>
-                                <h6 class="card-title">Quantity: {{ $data->quantity }}</h6>
-                                <h6 class="card-title">Order ID: {{ $data->order_id }}</h6>
-                                <h6 class="card-title">Product Price: {{ $data->price }}</h6>
-                                <hr>
-                                <p class="card-text">
-                                    <strong>Order Time </strong><br>
-                                    {{ $data->created_at }}
-                                </p>
-                            </div>
+
+            @if ($order->delivery_status !== 'Cancelled' && $order->delivery_status !== 'Returned' )
+                
+            <div class="card-footer text-end">
+                            {{-- <button class="btn btn-danger">Cancel Order</button> --}}
+                            <a href="{{ route('user.return.order', $orderDetails->first()->order_id) }}"
+                                class="btn btn-warning btn-sm mt-1">
+                                Return
+                            </a>
+                            @if($order->delivery_status !=='Delivered')
+                                <a href="{{ route('user.cancel.order', $orderDetails->first()->order_id) }}"
+                                    class="btn btn-danger btn-sm mt-1">
+                                    Cancel Order
+                                </a>
+                            @endif
+
                         </div>
-                    </div>
-                @endforeach
-            </div>
-        </div> --}}
+            @endif
+
         </div>
     </div>
 @endsection

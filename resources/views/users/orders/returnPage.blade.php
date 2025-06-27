@@ -12,21 +12,23 @@
                             </span>
                         </div>
                         <div class="card-body">
-
+                            @foreach ($order as $order)
+                                
+                            
                             <form id="updateForm" method="POST" class="mb-6" action="{{ route('order.return.request',$order->order_id) }}">
                                 @csrf
                                 <div class="row ">
                                     <div class="col-12 mb-4">
-                                        <label for="category" class="form-label">Select Reason</label>
+                                        <label for="category" class="form-label">Select Reason for cancelling order <strong>{{$order->order_id}} </strong> </label>
                                         <select class="form-select" aria-label="Default select example" name="reason">
                                             <option selected>Reason</option>
-                                            <option value="0"{{ old('reason') == '0' ? 'selected' : '' }}>
+                                            <option value="changed_address"{{ old('reason') == '0' ? 'selected' : '' }}>
                                                 Changed address
                                             </option>
-                                            <option value="1"{{ old('reason') == '1' ? 'selected' : '' }}>Delivery
+                                            <option value="getting_late"{{ old('reason') == '1' ? 'selected' : '' }}>Delivery
                                                 getting late
                                             </option>
-                                            <option value="1"{{ old('reason') == '0' ? 'selected' : '' }}>
+                                            <option value="wrong_product"{{ old('reason') == '0' ? 'selected' : '' }}>
                                                 wrong product delivered
                                             </option>
                                         </select>
@@ -38,7 +40,7 @@
                                     </div>
                                     <div class="col-12 mb-4">
                                         <label for="username" class="form-label">Description</label>
-                                        <input type="textarea" class="form-control" id="Category_name" name="Description"
+                                        <input type="textarea" class="form-control" id="Category_name" name="description"
                                            placeholder="Explain further your reason...." autofocus
                                             value="{{ old('Description') }}" />
                                         <span id="Description" class="text-danger">
@@ -57,7 +59,9 @@
 
 
                             </form>
-
+                            <br>
+                            <br>
+                            @endforeach
                         </div>
                     </div>
                 </div>

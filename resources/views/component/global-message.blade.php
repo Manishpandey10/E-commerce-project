@@ -20,6 +20,16 @@
         {{ session('deliveryStatus') }}
     </div>
 @endif
+@if (session('OrderReturned'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+        {{ session('OrderReturned') }}
+    </div>
+@endif
+@if (session('OrderCancelled'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+        {{ session('OrderCancelled') }}
+    </div>
+@endif
 
 
 @if (session('quantityUpdated'))
