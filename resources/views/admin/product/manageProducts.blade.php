@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('layouts.admin.app')
 @section('main-container')
     <div class="pc-container">
         <div class="pc-content">
@@ -36,6 +36,8 @@
                                             <div>Thumbnail:
                                                 <img src="{{ url('storage/' . $data->image) }}" width="50px"
                                                     height="50px" alt="Thumbnail">
+                                            </div>
+                                            <div>Price:{{ $data->price }}
                                             </div>
                                         </td>
                                         <td>Product Category :

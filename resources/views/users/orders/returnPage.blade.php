@@ -1,4 +1,4 @@
-@extends('users.layouts.main')
+@extends('layouts.users.app')
 @section('main-container')
     <div class="pc-container">
         <div class="pc-content">

@@ -1,12 +1,6 @@
-@extends('frontend.layouts.main')
+@extends('layouts.frontend.app')
 @section('main-container')
     <!-- Header Section End -->
-
-    @if (session('logoutMessage'))
-        <span id="alert_msg" class="mx-6 mb-2 text-warning">
-            {{ session('logoutMessage') }}
-        </span>
-    @endif
     <!-- Hero Section Begin -->
     <section class="hero">
 
@@ -64,28 +58,7 @@
     <section class="banner spad">
         <div class="container">
             <div class="row">
-                {{-- <div class="col-lg-7 offset-lg-4">
-                    <div class="banner__item">
-                        <div class="banner__item__pic">
-                            <img src="{{ url('landing_page/img/banner/banner-1.jpg') }}" alt="">
-                        </div>
-                        <div class="banner__item__text">
-                            <h2>Clothing Collections 2030</h2>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="banner__item banner__item--middle">
-                        <div class="banner__item__pic">
-                            <img src="{{ url('landing_page/img/banner/banner-2.jpg') }}" alt="">
-                        </div>
-                        <div class="banner__item__text">
-                            <h2>Accessories</h2>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                </div> --}}
+               
                 <div class="col-lg-7">
                     <div class="banner__item banner__item--last">
                         <div class="banner__item__pic">
@@ -109,7 +82,7 @@
                 <div class="col-lg-12">
                     <ul class="filter__controls">
                         <li class="active" data-filter="*">Best Sellers</li>
-                        <li data-filter=".new-arrivals">New Arrivals</li>
+                        {{-- <li data-filter=".new-arrivals">New Arrivals</li> --}}
                     </ul>
                 </div>
             </div>
@@ -120,10 +93,10 @@
                             <div class="product__item__pic set-bg" data-setbg="{{ url('storage/' . $data->image) }}">
                                 <span class="label">New</span>
                                 <ul class="product__hover">
-                                    <li><a href="#"><img src="{{ asset('landing_page/img/icon/heart.png') }}"
+                                    {{-- <li><a href="#"><img src="{{ asset('landing_page/img/icon/heart.png') }}"
                                                 alt=""></a></li>
                                     <li><a href="#"><img src="{{ asset('landing_page/img/icon/compare.png') }}"
-                                                alt=""> <span>Compare</span></a></li>
+                                                alt=""> <span>Compare</span></a></li> --}}
                                     <li><a href="{{ route('shop.details', $data->id) }}"><img
                                                 src="{{ asset('landing_page/img/icon/cart.png') }}"
                                                 alt=""><span>Details</span></a></li>
@@ -163,7 +136,7 @@
     <section class="instagram spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                {{-- <div class="col-lg-8">
                     <div class="instagram__pic">
                         <div class="instagram__pic__item set-bg"
                             data-setbg="{{ asset('landing_page/img/instagram/instagram-1.jpg') }}"></div>
@@ -185,7 +158,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua.</p>
                         <h3>#E_Commerce</h3>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -197,10 +170,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-title">
-                        <span>Latest News</span>
-                        <h2>Explore New Trends</h2>
-                    </div>
+                        {{-- <div class="section-title">
+                            <span>Latest News</span>
+                            <h2>Explore New Trends</h2>
+                        </div> --}}
                 </div>
             </div>
             {{-- <div class="row">

@@ -1,11 +1,11 @@
-@extends('frontend.layouts.main')
+@extends('layouts.frontend.app')
 @section('main-container')
     <div class="pc-container">
         <div class="pc-content">
             <div class="row mx-4 mt-6 justify-content-center">
                 <div class="col-12">
                     <div class="row">
-                        
+
                         <!-- Delivery Information Form -->
                         <div class="col-md-5">
                             <div class="card mb-4">
@@ -107,8 +107,8 @@
 
                         <!-- Billing Information -->
                         <div class="col-md-2">
-                            <button type="button" id="formButton" onclick="sameInfo()"
-                                class="btn btn-outline-primary">Same billing Info
+                            <button type="button" id="formButton" onclick="sameInfo()" class="btn btn-outline-primary">Same
+                                billing Info
                             </button>
                         </div>
                         <div class="col-md-5">
@@ -130,8 +130,8 @@
 
                                     <div class="mb-3">
                                         <label class="form-label">Email Address</label>
-                                        <input type="email" name="billing_email" id="billing_email" class="form-control"
-                                            placeholder="Enter email address">
+                                        <input type="email" name="billing_email" id="billing_email"
+                                            class="form-control" placeholder="Enter email address">
                                         <span class="text-danger">
                                             @error('billing_email')
                                                 {{ $message }}
@@ -150,15 +150,16 @@
                                         </span>
                                     </div>
                                     <div class="mb-3">
-                                            <label class="form-label">Address</label>
-                                            <input type="text" name="billing_address" id="billing_address" class="form-control"
-                                                placeholder="Enter address" value="{{ old('address') }}">
-                                            <span class="text-danger">
-                                                @error('billing_address')
-                                                    {{ $message }}
-                                                @enderror
-                                            </span>
-                                        </div>
+                                        <label class="form-label">Address</label>
+                                        <input type="text" name="billing_address" id="billing_address"
+                                            class="form-control" placeholder="Enter address"
+                                            value="{{ old('address') }}">
+                                        <span class="text-danger">
+                                            @error('billing_address')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                    </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Country</label>

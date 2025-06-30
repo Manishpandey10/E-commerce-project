@@ -1,4 +1,4 @@
-@extends('frontend.layouts.main')
+@extends('layouts.frontend.app')
 @section('main-container')
 <div class="container">
         <!-- Shop Details Section Begin -->
@@ -55,41 +55,7 @@
                                     </strong>
                                 </h6>
                             </p>
-                            {{-- <div class="product__details__option">
-                                <div class="product__details__option__size">
-                                    <span>Size:</span>
-                                    <label for="xxl">xxl
-                                        <input type="radio" id="xxl">
-                                    </label>
-                                    <label class="active" for="xl">xl
-                                        <input type="radio" id="xl">
-                                    </label>
-                                    <label for="l">l
-                                        <input type="radio" id="l">
-                                    </label>
-                                    <label for="sm">s
-                                        <input type="radio" id="sm">
-                                    </label>
-                                </div>
-                                <div class="product__details__option__color">
-                                    <span>Color:</span>
-                                    <label class="c-1" for="sp-1">
-                                        <input type="radio" id="sp-1">
-                                    </label>
-                                    <label class="c-2" for="sp-2">
-                                        <input type="radio" id="sp-2">
-                                    </label>
-                                    <label class="c-3" for="sp-3">
-                                        <input type="radio" id="sp-3">
-                                    </label>
-                                    <label class="c-4" for="sp-4">
-                                        <input type="radio" id="sp-4">
-                                    </label>
-                                    <label class="c-9" for="sp-9">
-                                        <input type="radio" id="sp-9">
-                                    </label>
-                                </div>
-                            </div> --}}
+                       
                             <form method="GET" enctype="multipart/form-data" action="{{ route('create.cart',['user_id'=> optional($user)->id, 'product_id'=>$data->id]) }}">
                                 @csrf
                             <div class="product__details__cart__option">
@@ -101,24 +67,11 @@
                                 <button class="primary-btn">add to cart</button>
                             </div>
                         </form>
-                            {{-- <div class="product__details__btns__option"> --}}
-                                {{-- <a href="#"><i class="fa fa-heart"></i> add to wishlist</a> --}}
-                                {{-- <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a> --}}
-                            {{-- </div> --}}
-                            {{-- <div class="product__details__last__option">
-                                <h5><span>Guaranteed Safe Checkout</span></h5>
-                                <img src="img/shop-details/details-payment.png" alt="">
-                                <ul>
-                                    <li><span>SKU:</span> 3812912</li>
-                                    <li><span>Categories:</span> Clothes</li>
-                                    <li><span>Tag:</span> Clothes, Skin, Body</li>
-                                </ul>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12">
+                    {{-- <div class="col-lg-12">
                         <div class="product__details__tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
@@ -235,7 +188,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

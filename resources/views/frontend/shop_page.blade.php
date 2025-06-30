@@ -1,4 +1,4 @@
-@extends('frontend.layouts.main')
+@extends('layouts.frontend.app')
 @section('main-container')
     <div class="main-container">
         <!-- Breadcrumb Section Begin -->
@@ -26,8 +26,8 @@
                     <div class="col-lg-3">
                         <div class="shop__sidebar">
                             <div class="shop__sidebar__search">
-                                <form action="#">
-                                    <input type="text" placeholder="Search...">
+                                <form action="{{ route('shop.page') }}">
+                                    <input name="search" type="text" placeholder="Search...">
                                     <button type="submit"><span class="icon_search"></span></button>
                                 </form>
                             </div>
@@ -59,7 +59,7 @@
 
                                     {{-- size section in sidebar --}}
                                     <div class="card">
-                                        <div class="card-heading">
+                                        {{-- <div class="card-heading">
                                             <a data-toggle="collapse" data-target="#collapseFour">Size</a>
                                         </div>
                                         <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
@@ -91,7 +91,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     {{-- color section in sidebar --}}
                                     {{-- <div class="card">
@@ -132,22 +132,7 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    {{--  tags in the card --}}
-                                    {{-- <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
-                                    </div>
-                                    <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__tags">
-                                                @foreach ($category as $data)
-                                                <a href="#">{{$data->categoryname}}</a>
-                                                @endforeach
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
+
                                 </div>
                             </div>
                         </div>
@@ -164,11 +149,15 @@
                                     <div class="shop__product__option__right">
 
                                         <p>Sort by Price:</p>
-                                        <select>
-                                            <option value="">Low To High</option>
-                                            <option value="">$0 - $55</option>
-                                            <option value="">$55 - $100</option>
-                                        </select>
+                                        <span class="custom-dropdown">
+                                                <select onchange="location = this.value;">
+                                                    <option selected disabled>Select Price Range</option>
+                                                    <option value="{{ route('price.filter.low') }}">Rs.0 - Rs.100</option>
+                                                    <option value="{{ route('price.filter.high') }}">Rs.100 +</option>
+                                                    <option value="{{ route('shop.page') }}">Show All</option>
+                                                </select>
+                                        </span>
+
                                     </div>
                                 </div>
                             </div>
@@ -183,12 +172,12 @@
                                             data-setbg="{{ url('storage/' . $data->image) }}">
                                             <a href="#">
                                                 <ul class="product__hover">
-                                                    <li><a href="#"><img
+                                                    {{-- <li><a href="#"><img
                                                                 src="{{ asset('landing_page/img/icon/heart.png') }}"
                                                                 alt=""></a></li>
                                                     <li><a href="#"><img
                                                                 src="{{ asset('landing_page/img/icon/compare.png') }}"
-                                                                alt=""> <span>Compare</span></a></li>
+                                                                alt=""> <span>Compare</span></a></li> --}}
                                                     <li><a href="{{ route('shop.details', $data->id) }}"><img
                                                                 src="{{ asset('landing_page/img/icon/cart.png') }}"
                                                                 alt=""><span>Details</span></a></li>
@@ -198,14 +187,16 @@
 
                                         <div class="product__item__text">
                                             <h6>{{ $data->name }}</h6>
-                                            
-                                            
-                                            <a href="{{ route('add.cart',['product_id'=>$data->id]) }}" class="add-cart">+ Add To Cart</a>
-                                        
-                                            
+
+
+                                            <a href="{{ route('add.cart', ['product_id' => $data->id]) }}"
+                                                class="add-cart">+
+                                                Add To Cart</a>
+
+
                                             <br>
                                             {{-- <h5>Name : {{ $data->name }} Rs.</h5> --}}
-                                            
+
                                             <h5>Price : {{ $data->price }} Rs.</h5>
                                             <div class="product__color__select">
                                                 <label for="pc-4">
@@ -226,7 +217,7 @@
 
 
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-lg-12">
                                 <div class="product__pagination">
                                     <a class="active" href="#">1</a>
@@ -236,11 +227,12 @@
                                     <a href="#">21</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
         </section>
         <!-- Shop Section End -->
     </div>
+
 @endsection

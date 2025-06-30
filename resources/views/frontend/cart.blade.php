@@ -1,4 +1,4 @@
-@extends('frontend.layouts.main')
+@extends('layouts.frontend.app')
 @section('main-container')
     <section class="breadcrumb-option">
         <div class="container">
@@ -36,6 +36,7 @@
                                     <th>Product</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -101,16 +102,12 @@
 
                 </div>
                 <div class="col-lg-4">
-                    <div class="cart__discount">
-                        <h6>Discount codes</h6>
-                        <form action="#">
-                            <input type="text" placeholder="Coupon code">
-                            <button type="submit">Apply</button>
-                        </form>
+                    
+                    
+                    
+                    <div>
+                        <h6>Your Total</h6>
                     </div>
-
-
-
                     <div class="cart__total">
                         <h6>Cart total</h6>
 
@@ -127,7 +124,7 @@
         </div>
     </section>
     @push('scripts')
-        <script>
+        {{-- <script>
             $(document).ready(function() {
                 $.ajaxSetup({
                     headers: {
@@ -154,26 +151,7 @@
 
                 });
             });
-        </script>
-        <script>
-            var proQty = $('.pro-qty-2');
-            proQty.prepend('<span id="dec" class="fa fa-angle-left dec qtybtn"></span>');
-            proQty.append('<span id="inc" class="fa fa-angle-right inc qtybtn"></span>');
-            proQty.on('click', '.qtybtn', function() {
-                var $button = $(this);
-                var oldValue = $button.parent().find('input').val();
-                if ($button.hasClass('inc')) {
-                    var newVal = parseFloat(oldValue) + 1;
-                } else {
-                    // Don't allow decrementing below zero
-                    if (oldValue > 1) {
-                        var newVal = parseFloat(oldValue) - 1;
-                    } else {
-                        newVal = 0;
-                    }
-                }
-                $button.parent().find('input').val(newVal);
-            });
-        </script>
+        </script> --}}
+
     @endpush
 @endsection

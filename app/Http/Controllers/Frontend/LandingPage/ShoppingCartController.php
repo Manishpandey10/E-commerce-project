@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\LandingPage;
+namespace App\Http\Controllers\Frontend\LandingPage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;

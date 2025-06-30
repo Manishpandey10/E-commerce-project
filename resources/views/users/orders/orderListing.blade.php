@@ -1,16 +1,16 @@
-@extends('users.layouts.main')
+@extends('layouts.users.app')
 
 @section('main-container')
     <div class="pc-container">
         <div class="pc-content">
             <div class="card mx-4 mt-6">
+                
+                
+                <h5 class="card-header">Order Listing</h5>
                 <span id="alert_msg" class="text-success mt-6 mb-4 ">
 
                     @include('component.global-message')
                 </span>
-
-
-                <h5 class="card-header">Order Listing</h5>
                 <br>
                 <br>
                 <br>

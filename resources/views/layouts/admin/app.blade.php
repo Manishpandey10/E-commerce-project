@@ -36,8 +36,8 @@
 
 <body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
     <div id="preloder">
-           <div class="loader"></div>
-       </div>
+        <div class="loader"></div>
+    </div>
     <!-- [ Pre-loader ] start -->
     <div class="loader-bg">
         <div class="loader-track">
@@ -165,7 +165,7 @@
                                         aria-controls="drp-tab-1" aria-selected="true"><i class="ti ti-user"></i>
                                         Profile</button>
                                 </li>
-                               
+
                             </ul>
                             <div class="tab-content" id="mysrpTabContent">
                                 <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel"
@@ -251,3 +251,26 @@
 
 
     <!-- [Body] end -->
+
+    @yield('main-container')
+    @stack('scripts')
+
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm my-1">
+                    <p class="m-0">Manish &#9829; crafted by Team @ BantTech </a></p>
+                </div>
+                <div class="col-auto my-1">
+                    <ul class="list-inline footer-link mb-0">
+                        <li class="list-inline-item"><a href="#">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<!-- [Body] end -->
+
+</html>

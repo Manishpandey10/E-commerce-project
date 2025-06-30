@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Checkout;
+namespace App\Http\Controllers\Frontend\Checkout;
 
 use App\Http\Controllers\Controller;
 use App\Models\BillingInfo;

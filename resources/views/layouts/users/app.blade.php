@@ -1,3 +1,4 @@
+{{-- header starts --}}
 <!DOCTYPE html>
 <html lang="en">
 <!-- [Head] start -->
@@ -273,3 +274,28 @@
 
 
     <!-- [Body] end -->
+
+{{-- header ends --}}
+@yield('main-container')
+@stack('scripts')
+{{-- footer starts here  --}}
+<footer class="pc-footer">
+    <div class="footer-wrapper container-fluid">
+      <div class="row">
+        <div class="col-sm my-1">
+          <p class="m-0"
+            >Manish &#9829; crafted by Team @ BantTech </a></p>
+        </div>
+        <div class="col-auto my-1">
+          <ul class="list-inline footer-link mb-0">
+            <li class="list-inline-item"><a href="#">Home</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+<!-- [Body] end -->
+
+</html>
