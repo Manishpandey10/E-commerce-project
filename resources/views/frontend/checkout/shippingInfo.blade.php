@@ -110,7 +110,7 @@
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                         <h5 class="mb-0">Billing Information</h5>
                                         <button type="button" id="formButton" onclick="sameInfo()"
-                                        class="btn btn-outline-primary">Diffrent billing Info
+                                        class="btn btn-outline-primary btn-sm">Diffrent billing Info
                                         </button>
                                     
                                 </div>
