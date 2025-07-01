@@ -141,8 +141,9 @@
                         <div class="shop__product__option">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="shop__product__option__left">
+                                    <div class="shop__product__option__ d-flex justify-content-left align-items-center">
                                         <p>Showing results</p>
+                                        <a class="btn-link  btn-sm" id="showAllProducts" href="{{ route('shop.page') }}">Show All products</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
@@ -247,4 +248,18 @@
         <!-- Shop Section End -->
     </div>
 
+    @push('scripts')
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+         <script>
+            $(document).ready(function(){
+                $shopUrl = "{{ route('shop.page') }}"
+                if(window.location.href == $shopUrl){
+                    $('#showAllProducts').hide();
+                }
+                else{
+                    $('#showAllProducts').show();
+                }
+            });
+        </script>
+    @endpush
 @endsection

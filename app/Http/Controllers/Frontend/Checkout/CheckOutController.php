@@ -65,7 +65,7 @@ class CheckOutController extends Controller
         );
 
         try {
-            DB::transaction(function () use ($request) {
+            DB::beginTransaction() ;
                 $user = Auth::user();
                 // $userId = $user->id;
 
@@ -141,7 +141,7 @@ class CheckOutController extends Controller
                 $billing->city = $request->input('billing_city', $request->input('city'));
                 $billing->pincode = $request->input('billing_pincode', $request->input('pincode'));
                 $billing->save();
-            });
+            
 
             //emptying the cart
 
