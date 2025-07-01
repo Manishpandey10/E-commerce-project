@@ -19,7 +19,7 @@ class ShoppingCartController extends Controller
             $cartdata = Cart::with('products')->where('user_id', $user)->get();
             // dd($cartdata);
             if($cartdata->count() == 0){
-              session()->flash('EmptyCart', 'Nothing in your cart. Add some Products to view inside cart');
+              session()->flash('emptyCart', 'Nothing in your cart. Add some Products to view inside cart');
             }
             $totalPrice = 0;
             foreach($cartdata as $data){

@@ -35,9 +35,12 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="contact__form">
-                            <span id="alert_msg" class="mx-6 mb-2 text-success">
-                                    @include('component.global-message')
+
+                            @if (session('submitMessage'))
+                                <span id="alert_msg" class="mx-6 mb-2 text-success">
+                                    {{ session('submitMessage') }}
                                 </span>
+                            @endif
                             <form action="{{ route('submit.message') }}" method="POST">
                                 @csrf
                                 <div class="row">
@@ -71,7 +74,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                
+
                             </form>
                         </div>
                     </div>

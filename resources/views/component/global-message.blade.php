@@ -42,11 +42,6 @@
         {{ session('noCheckoutAccess') }}
     </div>
 @endif
-@if (session('EmptyCart'))
-    <div class="alert alert-warning alert-dismissible" role="alert">
-        {{ session('EmptyCart') }}
-    </div>
-@endif
 
 @if (session('productDelted'))
     <div class="alert alert-danger alert-dismissible" role="alert">

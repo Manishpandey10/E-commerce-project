@@ -44,7 +44,7 @@ class LoginController extends Controller
                 return redirect()->route('landing.page');
             } else {
                 Auth::logout();
-                return redirect()->back()->with('UserError', "Access Denied. This is meant only for users. Head to /admin/login Route to access your admin dashboard ");
+                return redirect()->back()->with('UserError', "Access Denied. This is meant only for users, not for admins.");
             }
         }
         return redirect()->back()->with("userError", "Invalid credentials, Please enter correct details!!");
