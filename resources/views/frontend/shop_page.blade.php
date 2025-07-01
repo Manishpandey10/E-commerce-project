@@ -143,7 +143,8 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="shop__product__option__ d-flex justify-content-left align-items-center">
                                         <p>Showing results</p>
-                                        <a class="btn-link  btn-sm" id="showAllProducts" href="{{ route('shop.page') }}">Show All products</a>
+                                        <a class="btn-link  btn-sm" id="showAllProducts"
+                                            href="{{ route('shop.page') }}">Show All products</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
@@ -153,12 +154,12 @@
                                         </span> --}}
                                         <p>Sort by Price:</p>
                                         <span class="custom-dropdown">
-                                                <select onchange="location = this.value;">
-                                                    <option selected disabled>Select Price Range</option>
-                                                    <option value="{{ route('price.filter.low') }}">Rs.0 - Rs.100</option>
-                                                    <option value="{{ route('price.filter.high') }}">Rs.100 +</option>
-                                                    <option value="{{ route('shop.page') }}">Show All</option>
-                                                </select>
+                                            <select onchange="location = this.value;">
+                                                <option selected disabled>Select Price Range</option>
+                                                <option value="{{ route('price.filter.low') }}">Rs.0 - Rs.100</option>
+                                                <option value="{{ route('price.filter.high') }}">Rs.100 +</option>
+                                                <option value="{{ route('shop.page') }}">Show All</option>
+                                            </select>
                                         </span>
 
                                     </div>
@@ -166,58 +167,58 @@
                             </div>
                         </div>
                         <div class="row">
-                            @if ($productCount > 0 )
-                            @foreach ($productData as $data)
-                                <div class="col-lg-4 col-md-6 col-sm-6">
+                            @if ($productCount > 0)
+                                @foreach ($productData as $data)
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
 
-                                    <div class="product__item">
+                                        <div class="product__item">
 
-                                        <div class="product__item__pic set-bg"
-                                            data-setbg="{{ url('storage/' . $data->image) }}">
-                                            <a href="#">
-                                                <ul class="product__hover">
-                                                    {{-- <li><a href="#"><img
+                                            <div class="product__item__pic set-bg"
+                                                data-setbg="{{ url('storage/' . $data->image) }}">
+                                                <a href="#">
+                                                    <ul class="product__hover">
+                                                        {{-- <li><a href="#"><img
                                                                 src="{{ asset('landing_page/img/icon/heart.png') }}"
                                                                 alt=""></a></li>
                                                     <li><a href="#"><img
                                                                 src="{{ asset('landing_page/img/icon/compare.png') }}"
                                                                 alt=""> <span>Compare</span></a></li> --}}
-                                                    <li><a href="{{ route('shop.details', $data->id) }}"><img
-                                                                src="{{ asset('landing_page/img/icon/cart.png') }}"
-                                                                alt=""><span>Details</span></a></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-
-                                        <div class="product__item__text">
-                                            <h6>{{ $data->name }}</h6>
-
-
-                                            <a href="{{ route('add.cart', ['product_id' => $data->id]) }}"
-                                                class="add-cart">+
-                                                Add To Cart</a>
-
-
-                                            <br>
-                                            {{-- <h5>Name : {{ $data->name }} Rs.</h5> --}}
-
-                                            <h5>Price : {{ $data->price }} Rs.</h5>
-                                            <div class="product__color__select">
-                                                <label for="pc-4">
-                                                    <input type="radio" id="pc-4">
-                                                </label>
-                                                <label class="active black" for="pc-5">
-                                                    <input type="radio" id="pc-5">
-                                                </label>
-                                                <label class="grey" for="pc-6">
-                                                    <input type="radio" id="pc-6">
-                                                </label>
+                                                        <li><a href="{{ route('shop.details', $data->id) }}"><img
+                                                                    src="{{ asset('landing_page/img/icon/cart.png') }}"
+                                                                    alt=""><span>Details</span></a></li>
+                                                    </ul>
+                                                </a>
                                             </div>
-                                        </div>
 
+                                            <div class="product__item__text">
+                                                <h6>{{ $data->name }}</h6>
+
+
+                                                <a href="{{ route('add.cart', ['product_id' => $data->id]) }}"
+                                                    class="add-cart">+
+                                                    Add To Cart</a>
+
+
+                                                <br>
+                                                {{-- <h5>Name : {{ $data->name }} Rs.</h5> --}}
+
+                                                <h5>Price : {{ $data->price }} Rs.</h5>
+                                                <div class="product__color__select">
+                                                    <label for="pc-4">
+                                                        <input type="radio" id="pc-4">
+                                                    </label>
+                                                    <label class="active black" for="pc-5">
+                                                        <input type="radio" id="pc-5">
+                                                    </label>
+                                                    <label class="grey" for="pc-6">
+                                                        <input type="radio" id="pc-6">
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
                             @else
                                 <div class="col-lg-12 text-center">
                                     <div class="alert alert-info" role="alert">
@@ -249,16 +250,24 @@
     </div>
 
     @push('scripts')
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-         <script>
-            $(document).ready(function(){
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
                 $shopUrl = "{{ route('shop.page') }}"
-                if(window.location.href == $shopUrl){
+                if (window.location.href == $shopUrl) {
                     $('#showAllProducts').hide();
-                }
-                else{
+                } else {
                     $('#showAllProducts').show();
                 }
+            });
+            $('#showAllProducts').on('click', function () {
+            $.ajax({
+                url: $shopUrl,
+                method: 'GET',
+                success: function() {
+                    window.location.href = $shopUrl; // Redirect directly
+                }
+            });
             });
         </script>
     @endpush
