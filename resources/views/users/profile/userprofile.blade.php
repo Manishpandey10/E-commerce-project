@@ -11,13 +11,12 @@
                             <img class="card-img-top" src="{{ asset('storage/' . Auth::user()->image) }}" alt="Card image cap" />
                             <div class="card-body">
                                 <h5 class="card-title"><strong>Name</strong> :{{ Auth::user()->name }} </h5>
-                                    <h6 class="card-title">Dummy heading
-                                </h5>
+                                    <h6 class="card-title">Role_id = {{ Auth::user()->role_id }}</h5>
 
                                 <hr>
                                 <p class="card-text">
                                     <strong>Description</strong><br>
-                                    lorem isspaopjfanfjkba
+                                    This is a simple description paragraph line here.
                                 </p>
 
                             </div>
