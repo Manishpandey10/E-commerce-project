@@ -45,6 +45,7 @@ class LoginController extends Controller
             } else {
                 Auth::logout();
                 return redirect()->back()->with('UserError', "Access Denied. This is meant only for users, not for admins.");
+                
             }
         }
         return redirect()->back()->with("userError", "Invalid credentials, Please enter correct details!!");
