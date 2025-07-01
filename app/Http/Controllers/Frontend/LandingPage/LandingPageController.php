@@ -27,21 +27,13 @@ class LandingPageController extends Controller
         } else {
             $productData = Products::all();
         }
+        $productCount = $productData->count();
         $category = Category::all();
         $user = Auth::user();
 
 
-        // if(Auth::check()){
-        //     $user = Auth::user();
-        //     return view('frontend.shop_page',compact('productData','category','user'));
-        // }
-        // else{
-        //     return view('frontend.shop_page',compact('productData','category'));
 
-        // }
-
-        // dd($user);
-        return view('frontend.shop_page', compact('productData', 'category', 'user'));
+        return view('frontend.shop_page', compact('productData', 'category', 'user', 'productCount'));
     }
 
     public function filter($id)
@@ -50,23 +42,27 @@ class LandingPageController extends Controller
 
         $category = Category::all();
         $productData = Products::where('category_id', $id)->get();
+        $productCount = $productData->count();
 
-        return view('frontend.shop_page', compact('category', 'productData'));
+        return view('frontend.shop_page', compact('category', 'productData', 'productCount'));
     }
     public function lowPriceSort()
     {
         $category = Category::all();
         $productData = Products::whereBetween('price', [0, 100])->get();
         // dd($productData);
-        return view('frontend.shop_page', compact('category', 'productData'));
+        $productCount = $productData->count();
+
+        return view('frontend.shop_page', compact('category', 'productData', 'productCount'));
     }
     public function highPriceSort()
     {
         $category = Category::all();
-
+        
         $productData = Products::whereBetween('price', [100, 500])->get();
+        $productCount = $productData->count();
         // dd($productData);
-        return view('frontend.shop_page', compact('category', 'productData'));
+        return view('frontend.shop_page', compact('category', 'productData','productCount'));
     }
     public function productDetails($id)
     {

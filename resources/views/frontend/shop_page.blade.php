@@ -147,7 +147,9 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="shop__product__option__right">
-
+                                        {{-- <span>
+                                            @include('component.global-message')
+                                        </span> --}}
                                         <p>Sort by Price:</p>
                                         <span class="custom-dropdown">
                                                 <select onchange="location = this.value;">
@@ -163,6 +165,7 @@
                             </div>
                         </div>
                         <div class="row">
+                            @if ($productCount > 0 )
                             @foreach ($productData as $data)
                                 <div class="col-lg-4 col-md-6 col-sm-6">
 
@@ -214,6 +217,15 @@
                                     </div>
                                 </div>
                             @endforeach
+                            @else
+                                <div class="col-lg-12 text-center">
+                                    <div class="alert alert-info" role="alert">
+                                        <h4>No items found for your search "{{ request('search') }}".</h4>
+                                        <p>Please try a different search term or browse all products.</p>
+                                        <a href="{{ route('shop.page') }}" class="btn btn-primary mt-3">Back to Shop</a>
+                                    </div>
+                                </div>
+                            @endif
 
 
                         </div>

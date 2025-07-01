@@ -7,7 +7,7 @@
                     <div class="row">
 
                         <!-- Delivery Information Form -->
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="card mb-4">
                                 <form method="POST" action="{{ route('create.order') }}">
                                     @csrf
@@ -104,23 +104,21 @@
                                     </div>
                             </div>
                         </div>
-
-                        <!-- Billing Information -->
-                        <div class="col-md-2">
-                            <button type="button" id="formButton" onclick="sameInfo()" class="btn btn-outline-primary">Same
-                                billing Info
-                            </button>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h5 class="mb-0">Billing Information</h5>
+                        
+                        <div class="col-md-6">
+                            <div class="card mb-4" id="billingFormCard">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5 class="mb-0">Billing Information</h5>
+                                        <button type="button" id="formButton" onclick="sameInfo()"
+                                        class="btn btn-outline-primary">Diffrent billing Info
+                                        </button>
+                                    
                                 </div>
                                 <div class="card-body">
                                     <div class="mb-3">
                                         <label class="form-label">Full Name</label>
                                         <input type="text" name="billing_name" id="billing_name" class="form-control"
-                                            placeholder="Enter full name">
+                                            placeholder="Enter full name" value="{{ old('name') }}" disabled>
                                         <span class="text-danger">
                                             @error('billing_name')
                                                 {{ $message }}
@@ -131,7 +129,8 @@
                                     <div class="mb-3">
                                         <label class="form-label">Email Address</label>
                                         <input type="email" name="billing_email" id="billing_email"
-                                            class="form-control" placeholder="Enter email address">
+                                            class="form-control" placeholder="Enter email address"
+                                            value="{{ old('email') }}" disabled>
                                         <span class="text-danger">
                                             @error('billing_email')
                                                 {{ $message }}
@@ -142,7 +141,8 @@
                                     <div class="mb-3">
                                         <label class="form-label">Phone Number</label>
                                         <input type="text" name="billing_phone" id="billing_phone"
-                                            class="form-control" placeholder="Enter phone number">
+                                            class="form-control" placeholder="Enter phone number"
+                                            value="{{ old('phone') }}" disabled>
                                         <span class="text-danger">
                                             @error('billing_phone')
                                                 {{ $message }}
@@ -153,7 +153,7 @@
                                         <label class="form-label">Address</label>
                                         <input type="text" name="billing_address" id="billing_address"
                                             class="form-control" placeholder="Enter address"
-                                            value="{{ old('address') }}">
+                                            value="{{ old('address') }}" disabled>
                                         <span class="text-danger">
                                             @error('billing_address')
                                                 {{ $message }}
@@ -164,7 +164,8 @@
                                     <div class="mb-3">
                                         <label class="form-label">Country</label>
                                         <input type="text" name="billing_country" id="billing_country"
-                                            class="form-control" placeholder="Enter country">
+                                            class="form-control" placeholder="Enter country"
+                                            value="{{ old('country') }}" disabled>
                                         <span class="text-danger">
                                             @error('billing_country')
                                                 {{ $message }}
@@ -174,7 +175,8 @@
                                     <div class="mb-3">
                                         <label class="form-label">State</label>
                                         <input type="text" name="billing_state" id="billing_state"
-                                            class="form-control" placeholder="Enter state">
+                                            class="form-control" placeholder="Enter state" value="{{ old('state') }}"
+                                            disabled>
                                         <span class="text-danger">
                                             @error('billing_state')
                                                 {{ $message }}
@@ -185,7 +187,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">City</label>
                                         <input type="text" name="billing_city" id="billing_city" class="form-control"
-                                            placeholder="Enter city">
+                                            placeholder="Enter city" value="{{ old('city') }}" disabled>
                                         <span class="text-danger">
                                             @error('billing_city')
                                                 {{ $message }}
@@ -196,7 +198,8 @@
                                     <div class="mb-3">
                                         <label class="form-label">Pincode</label>
                                         <input type="text" name="billing_pincode" id="billing_pincode"
-                                            class="form-control" placeholder="Enter pincode">
+                                            class="form-control" placeholder="Enter pincode"
+                                            value="{{ old('pincode') }}" disabled>
                                         <span class="text-danger">
                                             @error('billing_pincode')
                                                 {{ $message }}
@@ -221,9 +224,12 @@
     </div>
     @push('scripts')
         <script>
+            // Function to copy delivery info to billing info and enable billing fields
             function sameInfo() {
-                console.log("button works!!");
+                // Get all input fields within the billing form card
+                const billingInputs = document.querySelectorAll('#billingFormCard input');
 
+                // Copy values from delivery to billing
                 document.getElementById('billing_name').value = document.getElementById('delivery_name').value;
                 document.getElementById('billing_email').value = document.getElementById('delivery_email').value;
                 document.getElementById('billing_phone').value = document.getElementById('delivery_phone').value;
@@ -232,6 +238,12 @@
                 document.getElementById('billing_state').value = document.getElementById('delivery_state').value;
                 document.getElementById('billing_city').value = document.getElementById('delivery_city').value;
                 document.getElementById('billing_pincode').value = document.getElementById('delivery_pincode').value;
+
+                // Enable all billing input fields
+                billingInputs.forEach(input => {
+                    input.removeAttribute('disabled');
+                });
+
             }
         </script>
     @endpush

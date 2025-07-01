@@ -34,8 +34,8 @@ class CheckOutController extends Controller
         $request->validate(
             [
                 "name" => 'required',
-                "email" => 'required',
-                "phone" => 'required',
+                "email" => "required|email|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/",
+                "phone" => 'required|regex:/^\d{10}$/',
                 "country" => 'required',
                 "state" => 'required',
                 "city" => 'required',
@@ -129,17 +129,17 @@ class CheckOutController extends Controller
                 $delivery->save();
                 // billing info 
 
-                $billing = new BillingInfo();
+               $billing = new BillingInfo();
                 $billing->order_id = $order->order_id;
                 $billing->user_id = $user->id;
-                $billing->name = $request->billing_name;
-                $billing->email = $request->billing_email;
-                $billing->phone = $request->billing_phone;
-                $billing->address = $request->billing_address;
-                $billing->country = $request->billing_country;
-                $billing->state = $request->billing_state;
-                $billing->city = $request->billing_city;
-                $billing->pincode = $request->billing_pincode;
+                $billing->name = $request->input('billing_name', $request->input('name'));
+                $billing->email = $request->input('billing_email', $request->input('email'));
+                $billing->phone = $request->input('billing_phone', $request->input('phone'));
+                $billing->address = $request->input('billing_address', $request->input('address'));
+                $billing->country = $request->input('billing_country', $request->input('country'));
+                $billing->state = $request->input('billing_state', $request->input('state'));
+                $billing->city = $request->input('billing_city', $request->input('city'));
+                $billing->pincode = $request->input('billing_pincode', $request->input('pincode'));
                 $billing->save();
             });
 

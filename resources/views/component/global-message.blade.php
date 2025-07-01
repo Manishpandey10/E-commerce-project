@@ -68,6 +68,11 @@
         {{ session('AdminError') }}
     </div>
 @endif
+@if (session('noProduct'))
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        {{ session('noProduct') }}
+    </div>
+@endif
 @if (session('logoutMessage'))
     <div class="alert alert-warning alert-dismissible" role="alert">
         {{ session('logoutMessage') }}

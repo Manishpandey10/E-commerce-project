@@ -24,7 +24,8 @@
                                     <th>Delivering To</th>
                                     <th>Delivering status</th>
                                     <th>Registered At</th>
-                                    <th>actions</th>
+                                    {{-- <th>Actions</th> --}}
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,11 +69,11 @@
                                         <td>
                                             {{ $data->created_at }}
                                         </td>
-                                        <td>
-                                            {{-- <button type="button" class=" btn btn-primary edit-btn"
-                                                name="edit ">Edit</button>&nbsp;&nbsp; --}}
+                                        {{-- <td>
+                                            <button type="button" class=" btn btn-primary edit-btn"
+                                                name="edit ">Edit</button>&nbsp;&nbsp;
                                             <button type="button" class="btn btn-primary dlt-btn">Status</button>
-                                        </td>
+                                        </td> --}}
                                 @endforeach
                             </tbody>
                         </table>

@@ -88,7 +88,7 @@
                 <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="">
                 <label class="form-check-label text-muted" for="customCheckc1">Keep me sign in</label>
               </div> -->
-                                <a href="#" class="link-secondary">Forgot password ?</a>
+                                {{-- <a href="#" class="link-secondary">Forgot password ?</a> --}}
                             </div>
                             <div class="d-grid mt-4">
                                 <button type="submit" class="btn btn-primary">Login</button>
