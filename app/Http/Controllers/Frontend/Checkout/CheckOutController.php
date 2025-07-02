@@ -74,9 +74,9 @@ class CheckOutController extends Controller
             $total = 0;
             $price = 0;
             foreach ($Itemdata as $data) {
-                $itemTotal = $data->quantity * $data->price;
+                $itemTotal = $data->quantity * $data->products->price;
                 $total += $itemTotal;
-                $price = $data->price;
+               $price =  $data->products->price;
             }
 
             //creating a order now 
@@ -106,7 +106,7 @@ class CheckOutController extends Controller
                 $items->sku = "SKU-ABC";
                 $items->product_name = $data->products->name;
                 $items->quantity = $data->quantity;
-                $items->price = $price;
+                $items->price = $data->price;
                 $items->image = $data->products->image;
                 $items->save();
             }

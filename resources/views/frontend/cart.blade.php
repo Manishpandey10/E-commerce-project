@@ -22,7 +22,7 @@
                 <div class="col-lg-8">
                     <span id="alert_msg" class="mx-6 mb-2 text-success">
                         @include('component.global-message')
-                        <div id="quantity" class="text-danger mb-3">
+                        <div class="text-danger mb-3">
                             @error('quantity')
                                 {{ $message }}
                             @enderror
@@ -123,35 +123,5 @@
             </div>
         </div>
     </section>
-    @push('scripts')
-        {{-- <script>
-            $(document).ready(function() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $('#quantity').on('submit', function(e) {
-                    e.preventDefault();
-                    let productId = $(this).data('id');
-                    let formdata = new FormData(this);
-                    $.ajax({
-                        url: "{{ url('/cart-update') }}/" + productId,
-                        method: "POST",
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: function(res) {
-
-                        },
-                        error: function(error) {
-                            console.log(error);
-                        }
-                    });
-
-                });
-            });
-        </script> --}}
-
-    @endpush
+   
 @endsection
