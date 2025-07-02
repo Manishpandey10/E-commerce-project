@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ChangeUserPassword;
+use App\Http\Controllers\Users\ChangeUserPassword;
 use App\Http\Controllers\Users\DashboardController;
 use App\Http\Controllers\Users\LoginController;
 use App\Http\Controllers\Users\OrderController;
