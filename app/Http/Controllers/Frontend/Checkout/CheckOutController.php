@@ -19,13 +19,11 @@ class CheckOutController extends Controller
 {
     public function index()
     {
-        if(Auth::Check()){
+        if (Auth::Check()) {
             return view('frontend.checkout.shippingInfo');
-        }
-        else{
+        } else {
             return redirect()->route('front.login')->with('cartError', "You need to login first!");
         }
-    
     }
     public function order(Request $request)
     {
@@ -59,89 +57,89 @@ class CheckOutController extends Controller
                 'state.required' => 'State field is required.',
                 'city.required' => 'City field is required.',
                 'pincode.required' => 'Pincode field is required.',
-                
+
 
             ]
         );
 
         try {
-            DB::beginTransaction() ;
-                $user = Auth::user();
-                // $userId = $user->id;
+            DB::beginTransaction();
+            $user = Auth::user();
+            // $userId = $user->id;
 
-                $Itemdata = Cart::with('products')->where('user_id', Auth::user()->id)->get();
-                // dd($Itemdata);
-
-
-                $total = 0;
-                $price = 0;
-                foreach ($Itemdata as $data) {
-                    $itemTotal = $data->quantity * $data->price;
-                    $total += $itemTotal;
-                    $price = $data->price;
-                }
-
-                //creating a order now 
-
-                $order = new Order();
-                $order->invoice_id = 'Random_invoice_id';
-                $order->txn_id = 'Random_txn_id';
-                $order->user_id = Auth::user()->id;
-                $order->name = $request->name;
-                $order->price = $price;
-                $order->total = $total;
-                $order->shipping = 0.00;
-                $order->delivery_status = "Pending";
-                $order->save(); 
-
-                $order->order_id = 'E-comm:' . $order->id; 
-                $order->save();
+            $Itemdata = Cart::with('products')->where('user_id', Auth::user()->id)->get();
+            // dd($Itemdata);
 
 
-                //saving order items
-                foreach ($Itemdata as $data) {
+            $total = 0;
+            $price = 0;
+            foreach ($Itemdata as $data) {
+                $itemTotal = $data->quantity * $data->price;
+                $total += $itemTotal;
+                $price = $data->price;
+            }
 
-                    $items = new OrderItems();
-                    $items->order_id = $order->order_id;
-                    $items->product_id = $data->products->id;
-                    $items->user_id = Auth::user()->id;
-                    $items->sku = "SKU-ABC";
-                    $items->product_name = $data->products->name;
-                    $items->quantity = $data->quantity;
-                    $items->price = $price;
-                    $items->image = $data->products->image;
-                    $items->save();
-                }
+            //creating a order now 
+
+            $order = new Order();
+            $order->invoice_id = 'Random_invoice_id';
+            $order->txn_id = 'Random_txn_id';
+            $order->user_id = Auth::user()->id;
+            $order->name = $request->name;
+            $order->price = $price;
+            $order->total = $total;
+            $order->shipping = 0.00;
+            $order->delivery_status = "Pending";
+            $order->save();
+
+            $order->order_id = 'E-comm:' . $order->id;
+            $order->save();
 
 
-                $delivery = new DeliveryInfo();
-                $delivery->order_id =$order->order_id;
+            //saving order items
+            foreach ($Itemdata as $data) {
 
-                $delivery->user_id = $user->id;
-                $delivery->name = $request->name;
-                $delivery->email = $request->email;
-                $delivery->phone = $request->phone;
-                $delivery->address = $request->address;
-                $delivery->country = $request->country;
-                $delivery->state = $request->state;
-                $delivery->city = $request->city;
-                $delivery->pincode = $request->pincode;
-                $delivery->save();
-                // billing info 
+                $items = new OrderItems();
+                $items->order_id = $order->order_id;
+                $items->product_id = $data->products->id;
+                $items->user_id = Auth::user()->id;
+                $items->sku = "SKU-ABC";
+                $items->product_name = $data->products->name;
+                $items->quantity = $data->quantity;
+                $items->price = $price;
+                $items->image = $data->products->image;
+                $items->save();
+            }
 
-               $billing = new BillingInfo();
-                $billing->order_id = $order->order_id;
-                $billing->user_id = $user->id;
-                $billing->name = $request->input('billing_name', $request->input('name'));
-                $billing->email = $request->input('billing_email', $request->input('email'));
-                $billing->phone = $request->input('billing_phone', $request->input('phone'));
-                $billing->address = $request->input('billing_address', $request->input('address'));
-                $billing->country = $request->input('billing_country', $request->input('country'));
-                $billing->state = $request->input('billing_state', $request->input('state'));
-                $billing->city = $request->input('billing_city', $request->input('city'));
-                $billing->pincode = $request->input('billing_pincode', $request->input('pincode'));
-                $billing->save();
-            
+
+            $delivery = new DeliveryInfo();
+            $delivery->order_id = $order->order_id;
+
+            $delivery->user_id = $user->id;
+            $delivery->name = $request->name;
+            $delivery->email = $request->email;
+            $delivery->phone = $request->phone;
+            $delivery->address = $request->address;
+            $delivery->country = $request->country;
+            $delivery->state = $request->state;
+            $delivery->city = $request->city;
+            $delivery->pincode = $request->pincode;
+            $delivery->save();
+            // billing info 
+
+            $billing = new BillingInfo();
+            $billing->order_id = $order->order_id;
+            $billing->user_id = $user->id;
+            $billing->name = $request->input('billing_name', $request->input('name'));
+            $billing->email = $request->input('billing_email', $request->input('email'));
+            $billing->phone = $request->input('billing_phone', $request->input('phone'));
+            $billing->address = $request->input('billing_address', $request->input('address'));
+            $billing->country = $request->input('billing_country', $request->input('country'));
+            $billing->state = $request->input('billing_state', $request->input('state'));
+            $billing->city = $request->input('billing_city', $request->input('city'));
+            $billing->pincode = $request->input('billing_pincode', $request->input('pincode'));
+            $billing->save();
+
 
             //emptying the cart
 
@@ -181,6 +179,10 @@ class CheckOutController extends Controller
     }
     public function orderSuccess()
     {
-        return view('frontend.checkout.orderSuccess');
+        if (Auth::Check()) {
+            return view('frontend.checkout.orderSuccess');
+        } else {
+            return redirect()->route('front.login')->with('cartError', "You need to login first!");
+        }
     }
 }
