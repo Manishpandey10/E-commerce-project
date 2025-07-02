@@ -36,7 +36,7 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p><strong>SubTotal: </strong>Rs.{{ $order->total }}</p>
+                                    <p><strong>Order Total: </strong>Rs.{{ $order->total }}</p>
                                     <p><strong>Shipping:</strong> {{ $order->shipping }}</p>
                                     {{-- <p><strong>Grand Total:</strong> $900</p>
                                 <p><strong>Paid:</strong> $0</p> --}}

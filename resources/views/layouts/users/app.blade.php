@@ -52,7 +52,7 @@
             <div class="m-header">
                 <a href="{{ route('users.dashboard') }}" class="b-brand text-primary">
                     <!-- ========   Change your logo from here   ============ -->
-                    <img src="{{ url('/assets/images/logo-dark.svg') }}" class="img-fluid logo-lg" alt="logo">
+                    <img src="{{ asset('assets/images/logo-dark.svg') }}" class="img-fluid logo-lg" alt="logo">
                 </a>
             </div>
             <div class="navbar-content">
