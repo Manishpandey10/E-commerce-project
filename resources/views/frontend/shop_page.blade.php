@@ -204,7 +204,7 @@
 
                                                 <h5>Price : {{ $data->price }} Rs.</h5>
                                                 <div class="product__color__select">
-                                                    <label for="pc-4">
+                                                    {{-- <label for="pc-4">
                                                         <input type="radio" id="pc-4">
                                                     </label>
                                                     <label class="active black" for="pc-5">
@@ -212,7 +212,7 @@
                                                     </label>
                                                     <label class="grey" for="pc-6">
                                                         <input type="radio" id="pc-6">
-                                                    </label>
+                                                    </label> --}}
                                                 </div>
                                             </div>
 
@@ -265,7 +265,7 @@
                 url: $shopUrl,
                 method: 'GET',
                 success: function() {
-                    window.location.href = $shopUrl; // Redirect directly
+                    window.location.href = $shopUrl; // Redirect to shop page
                 }
             });
             });

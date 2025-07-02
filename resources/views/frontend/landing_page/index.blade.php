@@ -105,24 +105,10 @@
                             <div class="product__item__text">
                                 <h6>{{ $data->name }}</h6>
                                 <a href="{{ route('add.cart', $data->id) }}" class="add-cart">+ Add To Cart</a>
-                                <div class="rating">
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
+                                <br>
                                 <h5>Price: {{ $data->price }} Rs.</h5>
                                 <div class="product__color__select">
-                                    <label for="pc-1">
-                                        <input type="radio" id="pc-1">
-                                    </label>
-                                    <label class="active black" for="pc-2">
-                                        <input type="radio" id="pc-2">
-                                    </label>
-                                    <label class="grey" for="pc-3">
-                                        <input type="radio" id="pc-3">
-                                    </label>
+                                    
                                 </div>
                             </div>
                         </div>

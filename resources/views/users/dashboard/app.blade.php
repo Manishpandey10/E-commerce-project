@@ -33,7 +33,10 @@
                             <h6 class="mb-2 f-w-400 text-muted">Welcome to the Dashboard User...</h6>
                             
                             <p class="mb-0 text-muted text-sm">You made an extra lorem ipsum
-
+                                <br>
+                                <br>
+                                <br>
+                            <p><a href="{{ route('landing.page') }}">Continue shopping</a></p>
                             </p>
                         </div>
                     </div>
