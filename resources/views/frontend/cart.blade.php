@@ -41,7 +41,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                       
+                              
                                 @foreach ($cartdata as $data)
                                     <tr>
                                         <td class="product__cart__item">
@@ -84,7 +85,6 @@
                                     </tr>
                                     </form>
                                 @endforeach
-
 
                             </tbody>
                         </table>

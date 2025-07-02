@@ -92,17 +92,18 @@ class ShoppingCartController extends Controller
         $request->validate([
             'quantity'=>'required|integer|min:1'
         ]);
-
+        
         $newCart = Cart::with('products')->where('product_id', $id)->first();
+        
+        
+        // dd($newCart);
+
         $newCart->quantity = $request->quantity;
         $newCart->save();
         
-        // dd($newCart);
         return redirect()->back()->with('quantityUpdated','Item quantity updated! ');
         
     }
-
-
 
     public function update(Request $request, $id)
     {

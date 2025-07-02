@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\Frontend\SignupController as FrontendSignupController;
+use App\Http\Controllers\ChangeUserPassword;
 use App\Http\Controllers\Users\DashboardController;
-use App\Http\Controllers\Users\ForgetPasswordController;
 use App\Http\Controllers\Users\LoginController;
 use App\Http\Controllers\Users\OrderController;
 use App\Http\Controllers\Users\SignupController;
@@ -31,4 +30,6 @@ Route::group(['prefix' => 'users', 'middleware'=>['is.admin','auth.access']], fu
     Route::post('/return-order/{id}',[OrderController::class ,'returnRequest'])->name('order.return.request');
     Route::get('/cancel-order/{id}',[OrderController::class ,'cancelOrder'])->name('user.cancel.order');
     Route::post('/cancel-order/{id}',[OrderController::class ,'cancelRequest'])->name('request.cancel.order');
+     Route::get('/change-password', [ChangeUserPassword::class, 'index'])->name('change-user-password');
+    Route::post('/change-password', [ChangeUserPassword::class, 'changeUserpassword'])->name('updated-user-password');
 });

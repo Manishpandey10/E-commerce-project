@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ManageCategoryController;
@@ -40,6 +41,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['is.user','admin.access']],funct
     Route::post('/delivery-status-update/{id}',[OrderListingController::class, 'updateDeliveryStatus'])->name('order.updateDeliveryStautus');
     Route::get('/profile',[AdminProfileController::class , 'index'])->name('admin.profile');
 
-
+    Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('change-password');
+    Route::post('/change-password', [ChangePasswordController::class, 'changepassword'])->name('updated-password');
 });
 
