@@ -109,7 +109,7 @@
                             <div class="card mb-4" id="billingFormCard">
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                         <h5 class="mb-0">Billing Information</h5>
-                                        <button type="button" id="formButton" onclick="sameInfo()"
+                                        <button type="button" id="formButton" onclick="diffrentInfo()"
                                         class="btn btn-outline-primary btn-sm">Diffrent billing Info
                                         </button>
                                     
@@ -225,24 +225,13 @@
     @push('scripts')
         <script>
             // Function to copy delivery info to billing info and enable billing fields
-            function sameInfo() {
-                // Get all input fields within the billing form card
+            function diffrentInfo() {
                 const billingInputs = document.querySelectorAll('#billingFormCard input');
-
-                // Copy values from delivery to billing
-                document.getElementById('billing_name').value = document.getElementById('delivery_name').value;
-                document.getElementById('billing_email').value = document.getElementById('delivery_email').value;
-                document.getElementById('billing_phone').value = document.getElementById('delivery_phone').value;
-                document.getElementById('billing_address').value = document.getElementById('delivery_address').value;
-                document.getElementById('billing_country').value = document.getElementById('delivery_country').value;
-                document.getElementById('billing_state').value = document.getElementById('delivery_state').value;
-                document.getElementById('billing_city').value = document.getElementById('delivery_city').value;
-                document.getElementById('billing_pincode').value = document.getElementById('delivery_pincode').value;
-
-                // Enable all billing input fields
+                
                 billingInputs.forEach(input => {
                     input.removeAttribute('disabled');
-                });
+                    input.value= '';
+                }); 
 
             }
         </script>
