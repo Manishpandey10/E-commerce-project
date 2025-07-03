@@ -120,7 +120,7 @@
                         <div class="form-group">
                             <form action="{{ route('shop.page') }}">
                                 @csrf
-                                <input type="search" name="search" class="form-control search-switch">
+                                <input type="search" name="search" placeholder="Search any product...." class="form-control search-switch">
                                 </input>
                                 {{-- <button type="submit" class="form-input"><img src="{{ url('landing_page/img/icon/search.png') }}"
                                 alt=""></button> --}}
