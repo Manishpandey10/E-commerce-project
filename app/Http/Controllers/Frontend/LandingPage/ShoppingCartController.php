@@ -49,10 +49,7 @@ class ShoppingCartController extends Controller
             // dd($newCart );
             $newCart->save();
 
-            // return response()->json([
-            //     "status"=>'success',
-            //     "data"=>$newCart
-            // ]);
+            
             return redirect()->route('shop.cart');
         } else {
             return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
@@ -68,7 +65,17 @@ class ShoppingCartController extends Controller
             // dd($user);
             // dd($request->quantity);
             // dd($product);
+            $cartItem = Cart::where('user_id',$user)->where('product_id', $product_id)->first();
+            
+            if($cartItem){
+                 $cartItem->quantity += 1; // Assuming a default quantity of 1 for this method
+                $cartItem->save();
+                return redirect()->route('shop.cart')->with('quantityUpdated','Item quantity updated! ');
+                
+            }
+            else{
 
+            
             $newCart = new Cart();
             $newCart->user_id = $user;
             $newCart->product_id = $product->id;
@@ -77,11 +84,7 @@ class ShoppingCartController extends Controller
 
             // dd($newCart);
             $newCart->save();
-
-            // return response()->json([
-            //     "status"=>'success',
-            //     "data"=>$newCart
-            // ]);
+            }
             return redirect()->route('shop.cart');
         } else {
             return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
