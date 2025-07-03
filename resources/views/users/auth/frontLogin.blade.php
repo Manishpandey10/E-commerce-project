@@ -99,7 +99,6 @@
                     <div class="auth-footer row">
                         <!-- <div class=""> -->
                         <div class="col my-1">
-                            <p class="m-0">Copyright © <a href="#">Codedthemes</a></p>
                         </div>
                         <div class="col-auto my-1">
                             <ul class="list-inline footer-link mb-0">
