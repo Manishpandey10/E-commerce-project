@@ -44,16 +44,14 @@ class LandingPageController extends Controller
         $category = Category::all();
         $productData = Products::where('category_id', $id)->get();
         $productCount = $productData->count();
-        //     $data = [
-        //         'category'=>$category,'productData'=>$productData, 'productCount'=>$productCount
-        //     ];
-        //     $html = View::make('frontend.shop_page', $data)->render();
-        //     return response()->json([
-        //     'status' => 'success',
-        //     'html'=>$html
-        // ]);
+           
+            // $html = view('frontend.shop_page', compact('category', 'productData', 'productCount'))->render();
+            return response()->json([
+            'status' => 'success',
+            'productData'=>$productData
+        ]);
 
-        return view('frontend.shop_page', compact('category', 'productData', 'productCount'));
+        // return view('frontend.shop_page', compact('category', 'productData', 'productCount'));
     }
 
     //using ajax

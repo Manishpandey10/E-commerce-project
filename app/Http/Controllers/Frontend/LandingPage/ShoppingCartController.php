@@ -18,17 +18,16 @@ class ShoppingCartController extends Controller
             $user = Auth::User()->id;
             $cartdata = Cart::with('products')->where('user_id', $user)->get();
             // dd($cartdata);
-            if($cartdata->count() == 0){
-              session()->flash('emptyCart', 'Nothing in your cart. Add some Products to view inside cart');
+            if ($cartdata->count() == 0) {
+                session()->flash('emptyCart', 'Nothing in your cart. Add some Products to view inside cart');
             }
             $totalPrice = 0;
-            foreach($cartdata as $data){
+            foreach ($cartdata as $data) {
                 $itemTotal = $data->quantity * $data->price;
-                $totalPrice +=$itemTotal;
-            
+                $totalPrice += $itemTotal;
             }
-           
-            return view('frontend.cart', compact('cartdata', 'user','totalPrice'));
+
+            return view('frontend.cart', compact('cartdata', 'user', 'totalPrice'));
         } else {
             return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
         }
@@ -39,23 +38,35 @@ class ShoppingCartController extends Controller
 
         if (Auth::Check()) {
             $product = Products::find($product_id);
-            $user = Auth::user()->id;
-            $newCart = new Cart();
-            $newCart->user_id = $user;
-            $newCart->product_id = $product->id;
-            $newCart->quantity = $request->quantity;
-            $newCart->price = $product->price;
+            $user_id = Auth::user()->id;
 
-            // dd($newCart );
-            $newCart->save();
+            $quantity = $request->quantity;
+            $cartItem = Cart::where('user_id', $user_id)->where('product_id', $product_id)->first();
 
-            
-            return redirect()->route('shop.cart');
+            if ($cartItem) {
+                // If item exists, update the quantity
+                $cartItem->quantity += $quantity;
+                $cartItem->save();
+                return redirect()->route('shop.cart')->with('success', 'Product quantity updated in cart!');
+            } else {
+                $user = Auth::user()->id;
+                $newCart = new Cart();
+                $newCart->user_id = $user;
+                $newCart->product_id = $product->id;
+                $newCart->quantity = $request->quantity;
+                $newCart->price = $product->price;
+
+                // dd($newCart );
+                $newCart->save();
+
+
+                return redirect()->route('shop.cart');
+            }
         } else {
             return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
         }
     }
-    public function addToCart($product_id)
+    public function addToCart(Request $request, $product_id)
     {
 
         if (Auth::Check()) {
@@ -65,47 +76,46 @@ class ShoppingCartController extends Controller
             // dd($user);
             // dd($request->quantity);
             // dd($product);
-            $cartItem = Cart::where('user_id',$user)->where('product_id', $product_id)->first();
-            
-            if($cartItem){
-                 $cartItem->quantity += 1; // Assuming a default quantity of 1 for this method
+            $cartItem = Cart::where('user_id', $user)->where('product_id', $product_id)->first();
+
+            if ($cartItem) {
+                $cartItem->quantity += 1;
                 $cartItem->save();
-                return redirect()->route('shop.cart')->with('quantityUpdated','Item quantity updated! ');
-                
-            }
-            else{
+                return redirect()->route('shop.cart')->with('quantityUpdated', 'Item quantity updated! ');
+            } else {
 
-            
-            $newCart = new Cart();
-            $newCart->user_id = $user;
-            $newCart->product_id = $product->id;
-            // $newCart->quantity = $request->quantity;
-            $newCart->price = $product->price;
 
-            // dd($newCart);
-            $newCart->save();
+                $newCart = new Cart();
+                $newCart->user_id = $user;
+                $newCart->product_id = $product->id;
+                // $newCart->quantity = $request->quantity;
+                $newCart->price = $product->price;
+
+                // dd($newCart);
+                $newCart->save();
             }
+
             return redirect()->route('shop.cart');
         } else {
             return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
         }
     }
-    public function increase(Request $request,$id) {
-        
+    public function increase(Request $request, $id)
+    {
+
         $request->validate([
-            'quantity'=>'required|integer|min:1'
+            'quantity' => 'required|integer|min:1'
         ]);
-        
+
         $newCart = Cart::with('products')->where('product_id', $id)->first();
-        
-        
+
+
         // dd($newCart);
 
         $newCart->quantity = $request->quantity;
         $newCart->save();
-        
-        return redirect()->back()->with('quantityUpdated','Item quantity updated! ');
-        
+
+        return redirect()->back()->with('quantityUpdated', 'Item quantity updated! ');
     }
 
     public function update(Request $request, $id)

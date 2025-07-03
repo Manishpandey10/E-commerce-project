@@ -48,9 +48,9 @@
                                                             <li>
                                                                 <button class="categoryName btn btn-link link-light"
                                                                     data-id="{{ $data->id }}">
-                                                                    <a href="{{ route('shop.category',$data->id) }}">
+                                                                    {{-- <a href="{{ route('shop.category',$data->id) }}"> --}}
                                                                         {{ $data->name }}
-                                                                    </a>
+                                                                    {{-- </a> --}}
                                                                 </button>
                                                             </li>
                                                         @endforeach
@@ -91,7 +91,7 @@
                             </div>
                         </div>
                         <div class="row" id="productList">
-                            @if ($productCount > 0)
+                            @if ($productData->count() > 0)
                                 @foreach ($productData as $data)
                                     <div class="col-lg-4 col-md-6 col-sm-6">
 
@@ -169,8 +169,70 @@
                 // Show all products
                 $('#showAllProducts').on('click', function(e) {
                     e.preventDefault();
-                    
+
                     window.location.href = shopUrl;
+                });
+                // category filters
+                $('.categoryName').on('click',function(e){
+                    e.preventDefault();
+                    let id = $(this).data('id');
+                    $.ajax({
+                        url:'/shop-category-products/'+id,
+                        method:'GET',
+                        data:{
+                            id:id
+                        },
+                        success:function(res){
+                            console.log(res);
+                            console.log(res.productData);
+                            if(res.status =="success"){
+                                console.log('ajax workis');
+                                $('#productList').html('');
+                                let productData = res.productData;
+                                productData.forEach(function(data) {
+                                    
+                                    let html = `
+                                        <div class="col-lg-4 col-md-6 col-sm-6">
+    
+                                            <div class="product__item">
+    
+                                                <div class="product__item__pic set-bg"
+                                                    data-setbg='/storage/${data.image}'>
+                                                    <a href="#">
+                                                        <ul class="product__hover">
+                                                            <li><a href='shop.details/${data.id}'><img
+                                                                        src='/landing_page/img/icon/cart.png'
+                                                                        alt=""><span>Details</span></a></li>
+                                                        </ul>
+                                                    </a>
+                                                </div>
+    
+                                                <div class="product__item__text">
+                                                    <h6>${data.name}</h6>    
+                                                    <a href='/cart-add/${data.id}'
+                                                        class="add-cart">+
+                                                        Add To Cart</a>
+    
+    
+                                                    <br>
+    
+                                                    <h5>Price :${data.price}Rs.</h5>
+                                                    <div class="product__color__select">
+                                                       
+                                                    </div>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                    `;
+                                    $('#productList').append(html);
+                                });
+                            }
+                        },
+                        error:function(error){
+                            console.log(error);
+                        }
+                    })
                 });
 
                
