@@ -29,6 +29,7 @@ Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact.
 Route::post('/contact-us/submit', [ContactUsController::class, 'submit'])->name('submit.message');
 
 Route::get('/shop-category-products/{id}', [LandingPageController::class, 'filter'])->name('shop.category');
+Route::get('shop/filter-by-price', [LandingPageController::class, 'priceFilter'])->name('price.filter');//filter based on price using ajax
 Route::get('shop/price-low-to-high', [LandingPageController::class, 'lowPriceSort'])->name('price.filter.low');
 Route::get('shop/price-above-hundred', [LandingPageController::class, 'highPriceSort'])->name('price.filter.high');
 

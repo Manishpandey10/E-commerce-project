@@ -8,6 +8,7 @@ use App\Models\Products;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class LandingPageController extends Controller
 {
@@ -43,9 +44,41 @@ class LandingPageController extends Controller
         $category = Category::all();
         $productData = Products::where('category_id', $id)->get();
         $productCount = $productData->count();
+        //     $data = [
+        //         'category'=>$category,'productData'=>$productData, 'productCount'=>$productCount
+        //     ];
+        //     $html = View::make('frontend.shop_page', $data)->render();
+        //     return response()->json([
+        //     'status' => 'success',
+        //     'html'=>$html
+        // ]);
 
         return view('frontend.shop_page', compact('category', 'productData', 'productCount'));
     }
+
+    //using ajax
+//     public function priceFilter(Request $request)
+//     {
+//         $filter = $request->filter;
+//  $category = Category::all();
+//         if ($filter == "low") {
+//             $productData = Products::whereBetween('price', [0, 100])->get();
+//             $productCount = $productData->count();
+//         } elseif ($filter == 'high') {
+//             $productData = Products::where('price', '>', 100)->get();
+//             $productCount = $productData->count();
+//         } else {
+//             $productData = Products::all();
+//             $productCount = $productData->count();
+//         }
+//         $html = view('frontend.shop_page', compact('productData','category','productCount'))->render();
+
+//         return response()->json([
+//             'status' => 'success',
+//             'html' => $html
+//         ]);
+//     }
+    //using routes in option value
     public function lowPriceSort()
     {
         $category = Category::all();
@@ -53,17 +86,31 @@ class LandingPageController extends Controller
         // dd($productData);
         $productCount = $productData->count();
 
+        // return response()->json([
+        //     'status'=>'success',
+        //     'redirect'=>route('price.filter.low')
+        // ]);
+
         return view('frontend.shop_page', compact('category', 'productData', 'productCount'));
     }
+
+
     public function highPriceSort()
     {
         $category = Category::all();
-        
-        $productData = Products::whereBetween('price', [100, 500])->get();
+
+        $productData = Products::where('price', '>', 100)->get();
         $productCount = $productData->count();
         // dd($productData);
-        return view('frontend.shop_page', compact('category', 'productData','productCount'));
+        //  return response()->json([
+        //     'status'=>'success',
+        //     'redirect'=>route('price.filter.high')
+
+        // ]);
+        return view('frontend.shop_page', compact('category', 'productData', 'productCount'));
     }
+
+    //
     public function productDetails($id)
     {
         $details = Products::where('id', $id)->get();
