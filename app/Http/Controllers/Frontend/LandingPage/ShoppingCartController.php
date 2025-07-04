@@ -138,12 +138,15 @@ class ShoppingCartController extends Controller
 
         return redirect()->back()->with('quantityUpdated', 'Item quantity updated! ');
     }
-    
-    public function updateUsingAjax($id){
+
+    public function updateUsingAjax(Request $request,$id){
+         $request->validate([
+            'quantity' => 'required|integer|min:1'
+        ]);
+
         $newCart = Cart::with('products')->where('product_id',$id)->first();
         dd($newCart);
-        $quantity = $newCart->quantity; 
-        $newCart->quantity = $quantity+1;
+        $newCart->quantity = $request->quantity;
         $newCart->save();
         return response()->json([
             'status'=>"success",
