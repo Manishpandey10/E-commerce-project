@@ -93,34 +93,25 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-6">
-                            <div class="continue__btn update__btn">
-                            </div>
-                        </div>
-                        <div class="col-lg-8 col-md-8 col-sm-6">
-
-                        </div>
+                        
                     </div>
 
                 </div>
-                <div class="col-lg-4">
-
-
-
+                <div class="col-lg-4 mt-5">
                     <div>
-                        <h6>Your Total</h6>
+                        <h5>Your Total</h5>
                     </div>
+                    <br>
                     <div class="cart__total">
                         <h6>Cart total</h6>
-
                         <ul>
-                            {{-- {{ dd($totalPrice); }} --}}
+                            
                             <li>Total ammount<span class="cart__total_price">Rs. {{ $totalPrice }} </span></li>
-                            {{-- <li>Total <span>Rs. -- </span></li> --}}
+                            
                         </ul>
-                        <a href="{{ route('checkout.info') }}" class="primary-btn">Proceed to checkout</a>
                     </div>
-
+                    
+                    <a href="{{ route('checkout.info') }}" class="primary-btn  mx-5 mt-5 px-5 text-center">Proceed to checkout</a>
                 </div>
             </div>
         </div>
@@ -153,9 +144,14 @@
                             if (res.status === "success") {
                                 // alert('item updated');
                                 form.find('.quantity-input').val(res.data.quantity);
-                                let totalPrice = res.total;
+                                
+                                let totalPrice = res.total;// this is the total cart price 
+                                let itemTotal = res.data.quantity * res.data.products.price;// this is per item price into quantity
+
+                                console.log("Item total is ",itemTotal);
                                 console.log(totalPrice);
-                                form.closest('tr').find('.item-total').text(totalPrice);
+                                
+                                form.closest('tr').find('.item-total').text(itemTotal);
                                 $('.cart__total_price').text('Rs. '+totalPrice);
                                 $('#alert_msg').html(
                                     `<div class="alert alert-warning alert-dismissible" role="alert">Item quantity updated!!</div>`

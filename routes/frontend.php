@@ -47,8 +47,8 @@ Route::get('/cart-add/{product_id}', [ShoppingCartController::class, 'addToCart'
 
 Route::get('/create-cart/{product_id}', [ShoppingCartController::class, 'createCart'])->name('create.cart');
 
-Route::post('/increase-cart/{id}', [ShoppingCartController::class, 'increase'])->name('inc.cart');
-Route::post('/decrease-cart/{id}', [ShoppingCartController::class, 'decrease'])->name('dec.cart');
+// Route::post('/increase-cart/{id}', [ShoppingCartController::class, 'increase'])->name('inc.cart');
+// Route::post('/decrease-cart/{id}', [ShoppingCartController::class, 'decrease'])->name('dec.cart');
 Route::post('/update-cart/{id}', [ShoppingCartController::class, 'updateUsingAjax'])->name('update.ajax.cart');
 
 Route::post('/cart-update/{id}', [ShoppingCartController::class, 'update'])->name('update.cart');
