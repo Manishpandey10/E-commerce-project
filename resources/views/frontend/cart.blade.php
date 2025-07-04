@@ -97,13 +97,13 @@
                     </div>
 
                 </div>
-                <div class="col-lg-4 mt-5">
+                <div class="col-lg-4 mt-5 ">
                     <div>
                         <h5>Your Total</h5>
                     </div>
                     <br>
                     <div class="cart__total">
-                        <h6>Cart total</h6>
+                        <h6 class=" text-center">Cart total</h6>
                         <ul>
                             
                             <li>Total ammount<span class="cart__total_price">Rs. {{ $totalPrice }} </span></li>
