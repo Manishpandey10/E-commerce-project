@@ -68,15 +68,15 @@
                                                     </div>
                                                 </div>
                                                 {{-- Move the update button inside the form --}}
-                                            </td>
-                                            
+                                        </td>
+
                                         <td class="cart__price">Rs.<span
                                                 class="item-total">{{ $data->products->price * $data->quantity }}</span>
                                         </td>
                                         <td>
-                                                <div class="continue__btn update__btn">
-                                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
-                                                </div>
+                                            <div class="continue__btn update__btn">
+                                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                            </div>
                                         </td>
                                         </form>
                                         <td class="cart__close">
@@ -84,7 +84,7 @@
                                                 <i class="fa fa-close"></i>
                                             </a>
                                         </td>
-                                        
+
                                     </tr>
                                 @endforeach
 
@@ -115,7 +115,7 @@
 
                         <ul>
                             {{-- {{ dd($totalPrice); }} --}}
-                            <li>Total <span class="cart__total_price">Rs.{{ $totalPrice }} </span></li>
+                            <li>Total ammount<span class="cart__total_price">Rs. {{ $totalPrice }} </span></li>
                             {{-- <li>Total <span>Rs. -- </span></li> --}}
                         </ul>
                         <a href="{{ route('checkout.info') }}" class="primary-btn">Proceed to checkout</a>
@@ -129,7 +129,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
-            
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -151,21 +151,36 @@
                         success: function(res) {
                             console.log(res);
                             if (res.status === "success") {
-                                alert('item updated');
+                                // alert('item updated');
                                 form.find('.quantity-input').val(res.data.quantity);
-                                let totalPrice = res.data.price*res.data.quantity;
+                                let totalPrice = res.total;
+                                console.log(totalPrice);
                                 form.closest('tr').find('.item-total').text(totalPrice);
-                                // $('.cart__total_price').text(totalPrice);
+                                $('.cart__total_price').text('Rs. '+totalPrice);
+                               
+                                // window.location.reload();
+
 
                             } else {
                                 alert('Could not update value, please try again!');
                             }
                         },
                         error: function(error) {
-                            console.log(error);
+                            // console.log(error);
+                            let alert_msg = error.responseJSON.errors.quantity[0];
+                            console.log(alert_msg);
+                                $('#alert_msg').html(
+                                    `<div class="alert alert-danger alert-dismissible" role="alert">${alert_msg}</div>`
+                                );
+                                setTimeout(function() {
+                                    $('#alert_msg').html('');
+                                    // window.location.reload();
+                                }, 1700);
                         }
 
                     })
+
+
 
                 });
             });

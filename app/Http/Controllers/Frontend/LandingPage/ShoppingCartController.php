@@ -148,10 +148,19 @@ class ShoppingCartController extends Controller
         // dd($cartItem);
         $cartItem->quantity = $request->quantity;
         $cartItem->save();
+        //now accessing the cart total price 
+        $user_id = "Guest";
+        $cartData = Cart::with('products')->where('user_id',$user_id)->get();
+        $TotalPrice = 0;
+        foreach($cartData as $data){
+            $total = $data->quantity * $data->price;
+            $TotalPrice += $total;
+        }
 
         return response()->json([
             'status'=>"success",
-            "data"=>$cartItem
+            "data"=>$cartItem,
+            "total"=>$TotalPrice
         ]);
     }
     public function update(Request $request, $id)
