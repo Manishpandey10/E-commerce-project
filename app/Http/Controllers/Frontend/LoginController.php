@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function frontIndex()
-    {
+    {   
         return view('users.auth.frontLogin');
     }
     public function frontDashboard()
@@ -41,7 +41,7 @@ class LoginController extends Controller
         );
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             if (Auth::user()->role_id == 2) {
-                return redirect()->route('landing.page');
+                return redirect()->intended();
             } else {
                 Auth::logout();
                 return redirect()->back()->with('UserError', "Access Denied. This is meant only for users, not for admins.");

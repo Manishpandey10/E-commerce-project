@@ -49,7 +49,7 @@
                                                                 <button class="categoryName btn btn-link link-light"
                                                                     data-id="{{ $data->id }}">
                                                                     {{-- <a href="{{ route('shop.category',$data->id) }}"> --}}
-                                                                        {{ $data->name }}
+                                                                    {{ $data->name }}
                                                                     {{-- </a> --}}
                                                                 </button>
                                                             </li>
@@ -101,12 +101,7 @@
                                                 data-setbg="{{ url('storage/' . $data->image) }}">
                                                 <a href="#">
                                                     <ul class="product__hover">
-                                                        {{-- <li><a href="#"><img
-                                                                src="{{ asset('landing_page/img/icon/heart.png') }}"
-                                                                alt=""></a></li>
-                                                    <li><a href="#"><img
-                                                                src="{{ asset('landing_page/img/icon/compare.png') }}"
-                                                                alt=""> <span>Compare</span></a></li> --}}
+
                                                         <li><a href="{{ route('shop.details', $data->id) }}"><img
                                                                     src="{{ asset('landing_page/img/icon/cart.png') }}"
                                                                     alt=""><span>Details</span></a></li>
@@ -127,7 +122,7 @@
 
                                                 <h5>Price : {{ $data->price }} Rs.</h5>
                                                 <div class="product__color__select">
-                                                   
+
                                                 </div>
                                             </div>
 
@@ -159,38 +154,37 @@
         <script>
             $(document).ready(function() {
                 let shopUrl = "{{ route('shop.page') }}";
-
+                //this was when we was htting forms and changing the actuak urls
                 if (window.location.href == shopUrl) {
                     $('#showAllProducts').hide();
                 } else {
                     $('#showAllProducts').show();
                 }
-
                 // Show all products
                 $('#showAllProducts').on('click', function(e) {
                     e.preventDefault();
-
                     window.location.href = shopUrl;
                 });
+                //this above workede when we was hitting forms and changing the actual urls 
                 // category filters
-                $('.categoryName').on('click',function(e){
+                $('.categoryName').on('click', function(e) {
                     e.preventDefault();
                     let id = $(this).data('id');
                     $.ajax({
-                        url:'/shop-category-products/'+id,
-                        method:'GET',
-                        data:{
-                            id:id
+                        url: '/shop-category-products/' + id,
+                        method: 'GET',
+                        data: {
+                            id: id
                         },
-                        success:function(res){
+                        success: function(res) {
                             console.log(res);
                             console.log(res.productData);
-                            if(res.status =="success"){
+                            if (res.status == "success") {
                                 console.log('ajax workis');
                                 $('#productList').html('');
                                 let productData = res.productData;
                                 productData.forEach(function(data) {
-                                    
+
                                     let html = `
                                         <div class="col-lg-4 col-md-6 col-sm-6">
     
@@ -226,16 +220,25 @@
                                         </div>
                                     `;
                                     $('#productList').append(html);
+                                    $('.set-bg').each(function() {
+                                        var bg = $(this).data('setbg');
+                                        $(this).css('background-image', 'url(' +
+                                            bg + ')');
+                                    });
                                 });
                             }
+                              $('#showAllProducts').show();
+
                         },
-                        error:function(error){
+                        error: function(error) {
                             console.log(error);
                         }
                     })
+
+
                 });
 
-               
+
 
 
             });

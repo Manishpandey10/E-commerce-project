@@ -14,8 +14,9 @@ class ShoppingCartController extends Controller
 {
     public function index()
     {
-        if (Auth::check()) {
-            $user = Auth::User()->id;
+        // if (Auth::check()) {
+            // $user = Auth::User()->id;
+            $user = "Guest";
             $cartdata = Cart::with('products')->where('user_id', $user)->get();
             // dd($cartdata);
             if ($cartdata->count() == 0) {
@@ -27,18 +28,19 @@ class ShoppingCartController extends Controller
                 $totalPrice += $itemTotal;
             }
 
+            // } else {
+                //     return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
+                // }
             return view('frontend.cart', compact('cartdata', 'user', 'totalPrice'));
-        } else {
-            return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
-        }
     }
 
     public function createCart(Request $request, $product_id)
     {
 
-        if (Auth::Check()) {
+        // if (Auth::Check()) {
             $product = Products::find($product_id);
-            $user_id = Auth::user()->id;
+            // $user_id = Auth::user()->id;
+            $user_id = "Guest";
 
             $quantity = $request->quantity;
             $cartItem = Cart::where('user_id', $user_id)->where('product_id', $product_id)->first();
@@ -49,7 +51,8 @@ class ShoppingCartController extends Controller
                 $cartItem->save();
                 return redirect()->route('shop.cart')->with('success', 'Product quantity updated in cart!');
             } else {
-                $user = Auth::user()->id;
+                // $user = Auth::user()->id;
+                $user = "Guest";
                 $newCart = new Cart();
                 $newCart->user_id = $user;
                 $newCart->product_id = $product->id;
@@ -60,18 +63,19 @@ class ShoppingCartController extends Controller
                 $newCart->save();
 
 
-                return redirect()->route('shop.cart');
             }
-        } else {
-            return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
-        }
+            // } else {
+                //     return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
+                // }
+            return redirect()->route('shop.cart');
     }
     public function addToCart(Request $request, $product_id)
     {
 
-        if (Auth::Check()) {
+        // if (Auth::Check()) {
             $product = Products::find($product_id);
-            $user = Auth::user()->id;
+            // $user = Auth::user()->id;
+            $user = "Guest";
 
             // dd($user);
             // dd($request->quantity);
@@ -95,12 +99,29 @@ class ShoppingCartController extends Controller
                 $newCart->save();
             }
 
+            // } else {
+                //     return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
+                // }
             return redirect()->route('shop.cart');
-        } else {
-            return redirect()->route('front.login')->with('cartError', "You need to login first to see your cart!!");
-        }
     }
     public function increase(Request $request, $id)
+    {
+
+        $request->validate([
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        $newCart = Cart::with('products')->where('product_id', $id)->first();
+
+
+        dd($newCart);
+
+        $newCart->quantity = $request->quantity;
+        $newCart->save();
+
+        return redirect()->back()->with('quantityUpdated', 'Item quantity updated! ');
+    }
+    public function decrease(Request $request, $id)
     {
 
         $request->validate([
@@ -117,7 +138,18 @@ class ShoppingCartController extends Controller
 
         return redirect()->back()->with('quantityUpdated', 'Item quantity updated! ');
     }
-
+    
+    public function updateUsingAjax($id){
+        $newCart = Cart::with('products')->where('product_id',$id)->first();
+        dd($newCart);
+        $quantity = $newCart->quantity; 
+        $newCart->quantity = $quantity+1;
+        $newCart->save();
+        return response()->json([
+            'status'=>"success",
+            "data"=>$newCart
+        ]);
+    }
     public function update(Request $request, $id)
     {
         if (Auth::Check()) {

@@ -20,15 +20,16 @@ class CheckOutController extends Controller
     public function index()
     {
         if (Auth::Check()) {
-            //this is the logic to replace the user_id data before placeing order *intial*
-            // $user = Auth::user()->id;
-            // $cartData = Cart::where('user_id',"Guest")->get();
-            // foreach($cartData as $data){
-            //     $data->user_id = $user;
-            // }
+            // this is the logic to replace the user_id data before placeing order *intial*
+            $user = Auth::user()->id;
+            $cartData = Cart::where('user_id',"Guest")->get();
+            foreach($cartData as $data){
+                $data->user_id = $user;
+                $data->save();
+            }
             return view('frontend.checkout.shippingInfo');
         } else {
-            return redirect()->route('front.login')->with('cartError', "You need to login first!");
+            return redirect()->guest(route('front.login'))->with('cartError', "You need to login first!");
         }
     }
     public function order(Request $request)

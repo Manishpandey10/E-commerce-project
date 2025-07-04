@@ -57,13 +57,12 @@
                                         </td>
 
                                         <td class="quantity__item">
-                                            <form method="POST" action="{{ route('inc.cart', $data->products->id) }}">
-                                                @csrf
+                                            {{-- <form method="POST" action="{{ route('inc.cart', $data->products->id) }}"> --}}
+                                                {{-- @csrf --}}
                                                 <div class="quantity">
                                                     {{-- <span id="dec" class="fa fa-angle-left dec qtybtn">aha</span> --}}
                                                     <div class="pro-qty-2">
-
-                                                        <input type="text" id="quantity" name="quantity" min="1"
+                                                        <input type="text" id="quantity" data-cart-id="{{ $data->id }}" name="quantity" min="1"
                                                             value="{{ $data->quantity }} ">
                                                     </div>
                                                     {{-- <span id="inc" class="fa fa-angle-right inc qtybtn"></span> --}}
@@ -73,17 +72,17 @@
 
                                         <td class="cart__price">Rs.{{ $data->products->price * $data->quantity }}</td>
 
-                                        <td>
+                                        {{-- <td>
                                             <div class="continue__btn update__btn">
                                                 <button id="submit" class="btn btn-primary btn-sm"
                                                     type="submit">Update</button>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                         <td class="cart__close"><a href="{{ route('delete.cart', $data->id) }}"><i
                                                     class="fa fa-close"></i></a>
                                         </td>
                                     </tr>
-                                    </form>
+                                    {{-- </form> --}}
                                 @endforeach
 
                             </tbody>
@@ -127,7 +126,42 @@
                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
             <script>
                 $(document).ready(function(){
+                    $("#inc").on('click',function(){
+                        let cartId = $(this).data('cart-id');
+                        let oldQauntity =parseInt(this.value);
+                        let newQuantity = oldQauntity+1;
+                        
+                        oldQauntity.val(newQuantity);
+                    });
+                    $("#dec").on('click',function(){
+                        let cartId = $(this).data('cart-id');
+                        let oldQauntity =parseInt(this.value);
+                        let newQuantity = oldQauntity+1;
+
+                        if(newQuantity>=1){
+                            oldQauntity.val(newQuantity);
+                        }
+                    });
                     
+                    $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                    });
+
+                    $.ajax({
+                        url:'/update-cart/'+cartId,
+                       data:{
+                            id:cartId
+                       },
+                       success:function(res){
+                        console.log(res);
+                       },
+                       error:fucntion(error){
+                        console.log(error);
+                       }
+
+                    })
                 });
             </script>
    @endpush

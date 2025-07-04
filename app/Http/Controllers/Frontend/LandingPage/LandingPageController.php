@@ -43,7 +43,7 @@ class LandingPageController extends Controller
 
         $category = Category::all();
         $productData = Products::where('category_id', $id)->get();
-        $productCount = $productData->count();
+        // $productCount = $productData->count();
            
             // $html = view('frontend.shop_page', compact('category', 'productData', 'productCount'))->render();
             return response()->json([
