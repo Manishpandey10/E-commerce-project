@@ -41,8 +41,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                       
-                              
+
+
                                 @foreach ($cartdata as $data)
                                     <tr>
                                         <td class="product__cart__item">
@@ -57,32 +57,35 @@
                                         </td>
 
                                         <td class="quantity__item">
-                                            <form id="updateQuantity">
-                                                {{-- @csrf --}}
+                                            {{-- Use a class for the form and add data-cart-id to the form --}}
+                                            <form class="updateQuantityForm" data-cart-id="{{ $data->products->id }}">
+                                                @csrf
                                                 <div class="quantity">
-                                                    {{-- <span id="dec" class="fa fa-angle-left dec qtybtn">aha</span> --}}
                                                     <div class="pro-qty-2">
-                                                        <input type="text" id="quantity" data-cart-id="{{ $data->id }}" name="quantity" min="1"
-                                                            value="{{ $data->quantity }} ">
+                                                        {{-- Keep data-cart-id on input if needed elsewhere, but mainly use it from the form --}}
+                                                        <input type="text" class="quantity-input" name="quantity"
+                                                            min="1" value="{{ $data->quantity }}">
                                                     </div>
-                                                    {{-- <span id="inc" class="fa fa-angle-right inc qtybtn"></span> --}}
                                                 </div>
-
+                                                {{-- Move the update button inside the form --}}
+                                            </td>
+                                            
+                                        <td class="cart__price">Rs.<span
+                                                class="item-total">{{ $data->products->price * $data->quantity }}</span>
                                         </td>
-
-                                        <td class="cart__price">Rs.{{ $data->products->price * $data->quantity }}</td>
-
                                         <td>
-                                            <div class="continue__btn update__btn">
-                                                <button id="submit" class="btn btn-primary btn-sm"
-                                                    type="submit">Update</button>
-                                            </div>
+                                                <div class="continue__btn update__btn">
+                                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                                </div>
                                         </td>
-                                        <td class="cart__close"><a href="{{ route('delete.cart', $data->id) }}"><i
-                                                    class="fa fa-close"></i></a>
+                                        </form>
+                                        <td class="cart__close">
+                                            <a href="{{ route('delete.cart', $data->id) }}">
+                                                <i class="fa fa-close"></i>
+                                            </a>
                                         </td>
+                                        
                                     </tr>
-                                    </form>
                                 @endforeach
 
                             </tbody>
@@ -101,9 +104,9 @@
 
                 </div>
                 <div class="col-lg-4">
-                    
-                    
-                    
+
+
+
                     <div>
                         <h6>Your Total</h6>
                     </div>
@@ -112,7 +115,7 @@
 
                         <ul>
                             {{-- {{ dd($totalPrice); }} --}}
-                            <li>Total <span>Rs.{{ $totalPrice }} </span></li>
+                            <li>Total <span class="cart__total_price">Rs.{{ $totalPrice }} </span></li>
                             {{-- <li>Total <span>Rs. -- </span></li> --}}
                         </ul>
                         <a href="{{ route('checkout.info') }}" class="primary-btn">Proceed to checkout</a>
@@ -122,56 +125,50 @@
             </div>
         </div>
     </section>
-   @push('scripts')
-               <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-            <script>
-                $(document).ready(function(){
-                    // $("#inc").on('change',function(){
-                    //     let cartId = $(this).data('cart-id');
-                    //     let oldQauntity =parseInt(this.val());
-                    //     let newQuantity = oldQauntity+1;
-                        
-                    //     oldQauntity.val(newQuantity);
-                    // });
-                    // $("#dec").on('change',function(){
-                    //     let cartId = $(this).data('cart-id');
-                    //     let oldQauntity =parseInt(this.val());
-                    //     let newQuantity = oldQauntity+1;
-
-                    //     if(newQuantity>=1){
-                    //         oldQauntity.val(newQuantity);
-                    //     }
-                    // });
-
-                    $.ajaxSetup({
+    @push('scripts')
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+            
+                $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                    });
-                    $('#updateQuantity').on('change',function(){
-                        const formData = new FormData(this);
-                        $.ajax({
-                            url:'/update-cart/'+cartId,
-                            data:formData,
-                            contentType: false,
-                            processData: false,
-                           success:function(res){
+                });
+                $('.updateQuantityForm').on('submit', function(e) {
+                    e.preventDefault();
+                    let form = $(this);
+                    let Id = form.data('cart-id');
+                    let quantity = form.find('.quantity-input').val();
+
+                    $.ajax({
+                        url: '/update-cart/' + Id,
+                        method: 'POST',
+                        data: {
+                            quantity: quantity
+                        },
+
+                        success: function(res) {
                             console.log(res);
-                            if(res.status === "success"){
-                                $('#quantity').value = res.data.quantity;
-                            }
-                            else{
+                            if (res.status === "success") {
+                                alert('item updated');
+                                form.find('.quantity-input').val(res.data.quantity);
+                                let totalPrice = res.data.price*res.data.quantity;
+                                form.closest('tr').find('.item-total').text(totalPrice);
+                                // $('.cart__total_price').text(totalPrice);
+
+                            } else {
                                 alert('Could not update value, please try again!');
                             }
-                           },
-                           error:function(error){
+                        },
+                        error: function(error) {
                             console.log(error);
-                           }
-    
-                        })
-                        
-                    });
+                        }
+
+                    })
+
                 });
-            </script>
-   @endpush
+            });
+        </script>
+    @endpush
 @endsection

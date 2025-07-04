@@ -144,13 +144,14 @@ class ShoppingCartController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
-        $newCart = Cart::with('products')->where('product_id',$id)->first();
-        dd($newCart);
-        $newCart->quantity = $request->quantity;
-        $newCart->save();
+        $cartItem = Cart::with('products')->where('product_id',$id)->first();
+        // dd($cartItem);
+        $cartItem->quantity = $request->quantity;
+        $cartItem->save();
+
         return response()->json([
             'status'=>"success",
-            "data"=>$newCart
+            "data"=>$cartItem
         ]);
     }
     public function update(Request $request, $id)
