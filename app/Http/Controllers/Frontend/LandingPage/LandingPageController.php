@@ -86,7 +86,8 @@ class LandingPageController extends Controller
 
         // return response()->json([
         //     'status'=>'success',
-        //     'redirect'=>route('price.filter.low')
+        //     "productcount"=>$productCount,
+        //     'data'=>$productData
         // ]);
 
         return view('frontend.shop_page', compact('category', 'productData', 'productCount'));

@@ -80,8 +80,8 @@
                                         <span class="custom-dropdown">
                                             <select class="filterProduct" onchange="location = this.value;">
                                                 <option selected disabled>Select Price Range</option>
-                                                <option value="{{ route('price.filter.low') }}">Rs.0 - Rs.100</option>
-                                                <option value="{{ route('price.filter.high') }}">Rs.100 +</option>
+                                                <option value="">Rs.0 - Rs.100</option>
+                                                <option value="">Rs.100 +</option>
                                                 <option value="{{ route('shop.page') }}">Show All</option>
                                             </select>
                                         </span>
@@ -236,6 +236,8 @@
 
 
                 });
+                //sorting based on price 
+               
 
 
 
