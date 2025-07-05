@@ -154,7 +154,6 @@
         <script>
             $(document).ready(function() {
                 let shopUrl = "{{ route('shop.page') }}";
-                //this was when we was htting forms and changing the actuak urls
                 if (window.location.href == shopUrl) {
                     $('#showAllProducts').hide();
                 } else {

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class ShoppingCartController extends Controller
 {
     public function index()
-    {   
+    {
         //for guest user logged in 
         if (!Auth::check()) {
             // $user = Auth::User()->id;
@@ -202,18 +202,13 @@ class ShoppingCartController extends Controller
         $cartItem->quantity = $request->quantity;
         $cartItem->save();
         //now accessing the cart total price 
-        if(!Auth::check()){
-            $user_id = "Guest";
-            $cartData = Cart::with('products')->where('user_id', $user_id)->get();
-        }
-        else{
-            $user_id = Auth::user()->id;
-            $cartData = Cart::with('products')->where('user_id', $user_id)->get();
-            $TotalPrice = 0;
-            foreach ($cartData as $data) {
-                $total = $data->quantity * $data->price;
-                $TotalPrice += $total;
-            }
+        $user_id= Auth::check()?Auth::user()->id : "Guest";
+        
+        $cartData = Cart::with('products')->where('user_id', $user_id)->get();
+        $TotalPrice = 0;
+        foreach ($cartData as $data) {
+            $total = $data->quantity * $data->price;
+            $TotalPrice += $total;
         }
 
         return response()->json([

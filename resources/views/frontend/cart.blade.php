@@ -152,6 +152,7 @@
                                 console.log(totalPrice);
                                 
                                 form.closest('tr').find('.item-total').text(itemTotal);
+                                
                                 $('.cart__total_price').text('Rs. '+totalPrice);
                                 $('#alert_msg').html(
                                     `<div class="alert alert-warning alert-dismissible" role="alert">Item quantity updated!!</div>`
